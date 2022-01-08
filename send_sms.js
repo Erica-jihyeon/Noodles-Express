@@ -2,14 +2,27 @@ require('dotenv').config();
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Find your Account SID and Auth Token at twilio.com/console
 // and set the environment variables. See http://twil.io/secure
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
+// https://www.twilio.com/docs/sms/quickstart/node
+//npm install twilio
+//npm install dotenv
 
-client.messages
-  .create({
-     body: 'Noodles Express: We have received your order! It will be ready for pick up in 20 mins. See you soon!',
-     from: '+17787450500',
-     to: '+17786813760'
-   })
-  .then(message => console.log(message.sid));
+const send_sms = function(message, fromPhone, toPhone) {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const twilioFromPhone = process.env.TWILIO_FROM_NUMBER;
+
+
+  const client = require('twilio')(accountSid, authToken);
+  client.messages
+    .create({
+      body: `${message}`,
+      from: `+${twilioFromPhone}`,
+      to: `${toPhone}`
+    })
+    .then(message => {
+      console.log(message.sid)
+      console.log(`Message sent to : ${message.to} content : ${message.body}`)
+    });
+}
+
+module.exports = { send_sms };
