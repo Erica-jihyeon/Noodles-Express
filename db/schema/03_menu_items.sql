@@ -6,5 +6,6 @@ CREATE TABLE menu_items (
   price MONEY NOT NULL DEFAULT 0,
   description VARCHAR(255) NOT NULL,
   image_url VARCHAR(255) NOT NULL,
-  category VARCHAR(255) NOT NULL,
+  thumbnail_url VARCHAR(255) NOT NULL,
+  category VARCHAR(255) NOT NULL
 );
