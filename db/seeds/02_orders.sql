@@ -1,10 +1,7 @@
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (1, '2022-01-03 18:30:32', '2022-01-03 18:50:32', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (2, '2022-01-02 11:15:12', '2022-01-02 11:30:45', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (3, '2022-01-03 15:25:45', '2022-01-03 15:40:45', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (4, '2022-01-01 20:40:00', '2022-01-01 20:55:00', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (5, '2022-01-03 14:00:32', '2022-01-03 14:25:00', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (6, '2022-01-03 15:00:10', '2022-01-03 15:15:45', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (7, '2022-01-05 17:30:32', '2022-01-05 17:50:00', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (8, '2022-01-04 13:15:34', '2022-01-04 13:35:00', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (9, '2022-01-03 12:15:53', '2022-01-03 12:40:12', 'complete'),
-INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (10, '2022-01-02 16:30:56', '2022-01-03 16:45:22', 'complete'),
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (1, '2021-12-01T08:00:00.000Z', '2021-12-01T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (2, '2021-12-02T08:00:00.000Z', '2021-12-02T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (3, '2021-12-03T08:00:00.000Z', '2021-12-03T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (4, '2021-12-04T08:00:00.000Z', '2021-12-04T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (5, '2021-12-05T08:00:00.000Z', '2021-12-05T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (6, '2021-12-06T08:00:00.000Z', '2021-12-06T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (7, '2021-12-07T08:00:00.000Z', '2021-12-07T09:00:00.000Z', 'complete');
