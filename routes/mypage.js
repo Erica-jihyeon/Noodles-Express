@@ -1,13 +1,25 @@
 const express = require('express');
+const { getCurrentOrdersDetails, getPrevOrdersDetails } = require('./mypage_database');
 const router  = express.Router();
 
-
 module.exports = (db) => {
+
+  const templateVars = {};
+
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+
+    const userID = Number(req.session.user_id);
+    getCurrentOrdersDetails(db, userID)
       .then(data => {
-        const users = data.rows;
-        res.render('mypage');
+        templateVars.currentOrder = data.currentOrder;
+        templateVars.currentOrderTotal = data.currentOrderTotal === null ? data.currentOrderTotal : data.currentOrderTotal[0];
+        return getPrevOrdersDetails(db, userID);
+      })
+      .then(data => {
+        templateVars.prevOrders = data.prevOrders;
+        templateVars.prevOrdersTotals = data.prevOrdersTotals;
+        console.log(templateVars);
+        res.render('mypage', templateVars);
       })
       .catch(err => {
         res
