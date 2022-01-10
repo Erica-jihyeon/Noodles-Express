@@ -56,6 +56,12 @@ app.use("/order", orderRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+app.get('/login/:id', (req, res) => {
+  // cookie-session middleware
+  req.session.user_id = req.params.id;
+  res.redirect('/');
+});
+
 app.get("/", (req, res) => {
   const menuQuery = `SELECT thumbnail_url, item_name, price, description
   FROM menu_items
@@ -66,7 +72,7 @@ app.get("/", (req, res) => {
   FROM menu_items
   LIMIT 4;
   `;
-  const userID = 1;
+  const userID = req.session.user_id;
 
   const templateVars = {};
   //templateVars.userID = req.session.user_id
@@ -87,12 +93,6 @@ app.get("/", (req, res) => {
       // console.log(templateVars);
       res.render('index', templateVars);
     })
-});
-
-app.get('/login/:id', (req, res) => {
-  // cookie-session middleware
-  req.session.user_id = req.params.id;
-  res.redirect('/');
 });
 
 app.listen(PORT, () => {
