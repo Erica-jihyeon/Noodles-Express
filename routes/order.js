@@ -9,12 +9,14 @@ module.exports = (db) => {
 
   router.get("/", (req, res) => {
 
+    //getCartDetails(db, req.session.user_id)
     getCartDetails(db, 7)
       .then(data => {
         // console.log(data);
         templateVars.cart = data.cart;
-        templateVars.cartTotal = data.cartTotal[0];
-        return getItemsByCategory(db, 'main')
+        templateVars.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
+        //return getItemsByCategory(db, req.session.category)
+        return getItemsByCategory(db, 'main');
       })
       .then(data => {
         // console.log(data);

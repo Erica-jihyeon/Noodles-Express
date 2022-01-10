@@ -11,7 +11,7 @@ module.exports = (db) => {
     getCurrentOrdersDetails(db, 7)
       .then(data => {
         templateVars.currentOrder = data.currentOrder;
-        templateVars.currentOrderTotal = data.currentOrderTotal[0];
+        templateVars.currentOrderTotal = data.currentOrderTotal === null ? data.currentOrderTotal : data.currentOrderTotal[0];
         //return getPrevOrdersDetails(db, req.session.user_id)
         return getPrevOrdersDetails(db, 7);
       })
