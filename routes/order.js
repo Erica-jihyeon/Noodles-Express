@@ -5,26 +5,27 @@ const { getCartDetails, getItemsByCategory } = require('./order_database');
 
 module.exports = (db) => {
 
-  const templateVars = {};
+  const orderPageData = {};
 
-  router.get("/", (req, res) => {
+  router.get("/data", (req, res) => {
 
-    //getCartDetails(db, req.session.user_id)
-    getCartDetails(db, 7)
+    getCartDetails(db, req.session.user_id)
       .then(data => {
         // console.log(data);
-        templateVars.cart = data.cart;
-        templateVars.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
-        //return getItemsByCategory(db, req.session.category)
-        return getItemsByCategory(db, 'main');
+        orderPageData.cart = data.cart;
+        orderPageData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
+
+        return getItemsByCategory(db);
       })
       .then(data => {
         // console.log(data);
-        for(let i = 0; i < data.length; i++) {
-          templateVars[`item${i+1}`] = data[i];
-        }
-        console.log(templateVars);
-        res.render('order', templateVars);
+        orderPageData.appetizer = data.appetizer;
+        orderPageData.main = data.main;
+        orderPageData.drink = data.drink;
+        orderPageData.dessert = data.dessert;
+        // console.log(orderPageData);
+        res.json(orderPageData);
+        // res.render('order', orderPageData);
       })
       .catch(err => {
         res
@@ -32,5 +33,13 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  // testing
+  // router.get("/", (req, res) => {
+
+  //   res.render('order');
+
+  // });
+
   return router;
 };

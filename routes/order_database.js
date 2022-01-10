@@ -17,25 +17,25 @@ const getCartDetails = function(db, userID) {
 
   const queryParam = [userID];
 
-  const templateVars = {};
+  const orderPageData = {};
 
   return db
     .query(cartQuery, queryParam)
       .then((data) => {
         if (data.rows.length === 0) {
-          templateVars.cart = null;
+          orderPageData.cart = null;
         } else {
-          templateVars.cart = data.rows;
+          orderPageData.cart = data.rows;
         }
         return db.query(cartTotalQuery, queryParam)
       })
       .then((data) => {
         if (data.rows.length === 0) {
-          templateVars.cartTotal = null;
+          orderPageData.cartTotal = null;
         } else {
-          templateVars.cartTotal = data.rows;
+          orderPageData.cartTotal = data.rows;
         }
-        return templateVars;
+        return orderPageData;
       })
       .catch(err => {
         console.log(err.message);
@@ -43,19 +43,39 @@ const getCartDetails = function(db, userID) {
 }
 exports.getCartDetails = getCartDetails;
 
-const getItemsByCategory = function (db, category) {
-  const queryString = `SELECT thumbnail_url, item_name, price, category, description
+const getItemsByCategory = function (db) {
+  const queryString1 = `SELECT thumbnail_url, item_name, price, category, description
   FROM menu_items
-  WHERE category = $1;`;
+  WHERE category = 'appetizer';`;
+  const queryString2 = `SELECT thumbnail_url, item_name, price, category, description
+  FROM menu_items
+  WHERE category = 'main';`;
+  const queryString3 = `SELECT thumbnail_url, item_name, price, category, description
+  FROM menu_items
+  WHERE category = 'drink';`;
+  const queryString4 = `SELECT thumbnail_url, item_name, price, category, description
+  FROM menu_items
+  WHERE category = 'dessert';`;
 
-  const queryParam = [category];
-
-  const templateVars = {};
+  const allMenuData = {};
 
   return db
-    .query(queryString, queryParam)
+    .query(queryString1)
     .then((data) => {
-      return data.rows;
+      allMenuData.appetizer = data.rows
+      return db.query(queryString2);
+    })
+    .then((data) => {
+      allMenuData.main = data.rows
+      return db.query(queryString3);
+    })
+    .then((data) => {
+      allMenuData.drink = data.rows
+      return db.query(queryString4);
+    })
+    .then((data) => {
+      allMenuData.dessert = data.rows
+      return allMenuData;
     })
     .catch(err => {
       console.log(err.message);
