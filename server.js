@@ -50,11 +50,11 @@ app.use("/order", orderRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  const queryString1 = `SELECT thumbnail_url, item_name, price, description
+  const menuQuery = `SELECT thumbnail_url, item_name, price, description
   FROM menu_items
   LIMIT 6;
   `;
-  const queryString2 = `
+  const categoryQuery = `
   SELECT DISTINCT ON (category) category, thumbnail_url
   FROM menu_items
   LIMIT 4;
@@ -62,15 +62,16 @@ app.get("/", (req, res) => {
   const userID = 1;
 
   const templateVars = {};
+  //templateVars.userID = req.session.user_id
   templateVars.userID = userID;
 
-  db.query(queryString1)
+  db.query(menuQuery)
     .then((result) => {
       // console.log(result.rows);
       for (let i = 0; i < result.rows.length; i++) {
         templateVars[`menu${i+1}`]=result.rows[i];
       }
-      return db.query(queryString2)
+      return db.query(categoryQuery)
     })
     .then((result) => {
       for (let i = 0; i < result.rows.length; i++) {
