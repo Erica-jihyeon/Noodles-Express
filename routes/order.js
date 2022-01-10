@@ -1,13 +1,28 @@
 const express = require('express');
 const router  = express.Router();
 
+const { getCartDetails, getItemsByCategory } = require('./order_database');
 
 module.exports = (db) => {
+
+  const templateVars = {};
+
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+
+    getCartDetails(db, 7)
       .then(data => {
-        const users = data.rows;
-        res.render('order');
+        // console.log(data);
+        templateVars.cart = data.cart;
+        templateVars.cartTotal = data.cartTotal[0];
+        return getItemsByCategory(db, 'main')
+      })
+      .then(data => {
+        // console.log(data);
+        for(let i = 0; i < data.length; i++) {
+          templateVars[`item${i+1}`] = data[i];
+        }
+        console.log(templateVars);
+        res.render('order', templateVars);
       })
       .catch(err => {
         res
