@@ -11,7 +11,7 @@ module.exports = (db) => {
     getCurrentOrdersDetails(db, 7)
       .then(data => {
         templateVars.currentOrder = data.currentOrder;
-        templateVars.currentOrderTotal = data.currentOrderTotal;
+        templateVars.currentOrderTotal = data.currentOrderTotal[0];
         //return getPrevOrdersDetails(db, req.session.user_id)
         return getPrevOrdersDetails(db, 7);
       })
@@ -19,7 +19,7 @@ module.exports = (db) => {
         templateVars.prevOrders = data.prevOrders;
         templateVars.prevOrdersTotals = data.prevOrdersTotals;
         console.log(templateVars);
-        res.render('mypage');
+        res.render('mypage', templateVars);
       })
       .catch(err => {
         res
