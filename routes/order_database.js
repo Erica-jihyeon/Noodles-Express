@@ -88,6 +88,7 @@ const getItemsByCategory = function (db) {
 exports.getItemsByCategory = getItemsByCategory;
 
 //////////////////
+//need info => spiciness, hot, item_size, menu_item_id
 const addCart = function(db, userID, orderId) {
 
   const newCartQuery = orderId ? `SELECT id FROM orders WHERE user_id = $1;` : `INSERT INTO orders (user_id) VALUES ($1) RETURNING *`;
@@ -110,24 +111,6 @@ const addCart = function(db, userID, orderId) {
   });
 }
 exports.addCart = addCart;
-
-const orderList = function(db) {
-  const cartQuery = `SELECT id FROM orders;`;
-  const orderList = [];
-  return db
-    .query(cartQuery)
-      .then((data) => {
-        for (const num of data.rows) {
-          orderList.push(num.id);
-        }
-        return orderList;
-      })
-      .catch(err => {
-        console.log(err.message);
-  });
-}
-exports.orderList = orderList;
-
 
 const isCart = function(db, userID) {
   const queryStr = `SELECT id as orders_id FROM orders WHERE user_id = $1 AND order_time IS NULL;`;

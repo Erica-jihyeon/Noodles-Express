@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { getCartDetails, getItemsByCategory, orderList, addCart, isCart } = require('./order_database');
+const { getCartDetails, getItemsByCategory, addCart, isCart } = require('./order_database');
 
 module.exports = (db) => {
 
@@ -75,45 +75,61 @@ module.exports = (db) => {
 
   router.post("/add_cart", (req, res) => {
     const userId = req.session.user_id
-    let orderListArr;
     let orderId;
+    const result = {};
 
-    orderList(db)
-      .then(data => {
-        orderListArr = data;
-        return getCartDetails(db, userId)
-      })
-      .then(data => {
-        data.cart ? orderId = data.cart[0].order_id : orderId = null;
-        return addCart(db, userId, orderId);
-      })
-      .then(data => {
-        // console.log(data[0]);
-        // send new item in the cart
-        res.json(data[0]);
-      })
-  });
-
-  router.get("/test", (req, res) => {
-    const userId = req.session.user_id
-    let orderListArr;
-    let orderId;
-
-    orderList(db)
-      .then(data => {
-        orderListArr = data;
-        return isCart(db, userId)
-      })
+    isCart(db, userId)
       .then(data => {
         console.log(data);
         data.cart ? orderId = data.cart[0].orders_id : orderId = null;
         return addCart(db, userId, orderId);
       })
       .then(data => {
-        console.log(data[0]);
+        return getCartDetails(db, userId)
       })
+      .then(data => {
+        result.cart = data.cart;
+        result.cartTotal = data.cartTotal[0];
+        console.log(result);
+        res.json(result);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
+
+
+  // add_cart post testing
+  // router.get("/test", (req, res) => {
+  //   const userId = req.session.user_id
+  //   let orderId;
+  //   const result = {};
+
+  //   isCart(db, userId)
+  //     .then(data => {
+  //       console.log(data);
+  //       data.cart ? orderId = data.cart[0].orders_id : orderId = null;
+  //       return addCart(db, userId, orderId);
+  //     })
+  //     .then(data => {
+  //       console.log(data[0]);
+  //       return getCartDetails(db, userId)
+  //     })
+  //     .then(data => {
+  //       result.cart = data.cart;
+  //       result.cartTotal = data.cartTotal[0];
+  //       console.log(result);
+  //       res.json(result);
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
 
   return router;
