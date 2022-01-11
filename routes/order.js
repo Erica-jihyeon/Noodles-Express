@@ -34,12 +34,12 @@ module.exports = (db) => {
       });
   });
 
-  // testing
-  // router.get("/", (req, res) => {
 
-  //   res.render('order');
+  router.get("/", (req, res) => {
 
-  // });
+    res.render('order');
+
+  });
 
   return router;
 };

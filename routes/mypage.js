@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCurrentOrdersDetails, getPrevOrdersDetails } = require('./mypage_database');
+const { getCurrentOrdersDetails, getPrevOrders } = require('./mypage_database');
 const router  = express.Router();
 
 module.exports = (db) => {
@@ -13,11 +13,12 @@ module.exports = (db) => {
       .then(data => {
         templateVars.currentOrder = data.currentOrder;
         templateVars.currentOrderTotal = data.currentOrderTotal === null ? data.currentOrderTotal : data.currentOrderTotal[0];
-        return getPrevOrdersDetails(db, userID);
+        return getPrevOrders(db, userID);
       })
       .then(data => {
         templateVars.prevOrders = data.prevOrders;
-        templateVars.prevOrdersTotals = data.prevOrdersTotals;
+        templateVars.prevOrdersDetail = data.prevDetails;
+        templateVars.orderIdList = data.orderIdList;
         console.log(templateVars);
         res.render('mypage', templateVars);
       })
