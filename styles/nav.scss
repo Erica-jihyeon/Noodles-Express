@@ -1,0 +1,29 @@
+nav {
+  position: fixed;
+  height: 40px;
+  width: 100%;
+  background-color: rgba(161, 145, 64, 0.6);
+  color: #FFFFFF;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.title {
+  height: 40%;
+
+  display: flex;
+}
+
+.contact {
+  font-size: .5em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
