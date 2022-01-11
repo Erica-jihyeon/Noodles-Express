@@ -1,3 +1,5 @@
+const order = require('./order');
+
 const getCartDetails = function(db, userID) {
   const cartQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id
   FROM customizations
@@ -43,6 +45,8 @@ const getCartDetails = function(db, userID) {
 }
 exports.getCartDetails = getCartDetails;
 
+
+
 const getItemsByCategory = function (db) {
   const queryString1 = `SELECT thumbnail_url, image_url, item_name, price, category, description
   FROM menu_items
@@ -82,3 +86,68 @@ const getItemsByCategory = function (db) {
     });
 }
 exports.getItemsByCategory = getItemsByCategory;
+
+//////////////////
+const addCart = function(db, userID, orderId) {
+
+  const newCartQuery = orderId ? `SELECT id FROM orders WHERE user_id = $1;` : `INSERT INTO orders (user_id) VALUES ($1) RETURNING *`;
+  const addItemsQuery = `INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES ($1, $2, $3, $4, $5) RETURNING *;`
+
+  const queryParam1 = [userID];
+  const queryParam2 = [4, true, 'small', orderId, 6];
+  return db
+    .query(newCartQuery, queryParam1)
+      .then((data) => {
+        // console.log(data.rows[0].id);
+        orderId ? queryParam2[3] = orderId : queryParam2[3] = data.rows[0].id;
+        return db.query(addItemsQuery, queryParam2);
+      })
+      .then((data) => {
+        return data.rows;
+      })
+      .catch(err => {
+        console.log(err.message);
+  });
+}
+exports.addCart = addCart;
+
+const orderList = function(db) {
+  const cartQuery = `SELECT id FROM orders;`;
+  const orderList = [];
+  return db
+    .query(cartQuery)
+      .then((data) => {
+        for (const num of data.rows) {
+          orderList.push(num.id);
+        }
+        return orderList;
+      })
+      .catch(err => {
+        console.log(err.message);
+  });
+}
+exports.orderList = orderList;
+
+
+const isCart = function(db, userID) {
+  const queryStr = `SELECT id as orders_id FROM orders WHERE user_id = $1 AND order_time IS NULL;`;
+
+  const queryParam = [userID];
+
+  const orderPageData = {};
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        if (data.rows.length === 0) {
+          orderPageData.cart = null;
+        } else {
+          orderPageData.cart = data.rows;
+        }
+        return orderPageData;
+      })
+      .catch(err => {
+        console.log(err.message);
+  });
+}
+exports.isCart = isCart;
