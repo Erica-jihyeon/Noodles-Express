@@ -5,51 +5,8 @@ const { getCartDetails, getItemsByCategory, addCart, isCart } = require('./order
 
 module.exports = (db) => {
 
-  const orderPageData = {};
-
-  // router.get("/data/orderlist", (req, res) => {
-
-  //   orderList(db)
-  //     .then(data => {
-  //       console.log(data);
-  //       return;
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
-
-  router.get("/data", (req, res) => {
-
-    getCartDetails(db, req.session.user_id)
-      .then(data => {
-        // console.log(data);
-        orderPageData.cart = data.cart;
-        orderPageData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
-
-        return getItemsByCategory(db);
-      })
-      .then(data => {
-        // console.log(data);
-        orderPageData.appetizer = data.appetizer;
-        orderPageData.main = data.main;
-        orderPageData.drink = data.drink;
-        orderPageData.dessert = data.dessert;
-        console.log(orderPageData);
-        res.json(orderPageData);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-
   router.get("/", (req, res) => {
-
+    const orderPageData = {};
     getCartDetails(db, req.session.user_id)
       .then(data => {
         // console.log(data);
@@ -73,6 +30,34 @@ module.exports = (db) => {
       });
   });
 
+  router.get("/data", (req, res) => {
+    const orderPageData = {};
+    getCartDetails(db, req.session.user_id)
+      .then(data => {
+        // console.log(data);
+        orderPageData.cart = data.cart;
+        orderPageData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
+
+        return getItemsByCategory(db);
+      })
+      .then(data => {
+        // console.log(data);
+        orderPageData.appetizer = data.appetizer;
+        orderPageData.main = data.main;
+        orderPageData.drink = data.drink;
+        orderPageData.dessert = data.dessert;
+        // console.log(orderPageData);
+        res.json(orderPageData);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
+
   router.post("/add_cart", (req, res) => {
     const userId = req.session.user_id
     let orderId;
@@ -80,17 +65,18 @@ module.exports = (db) => {
 
     isCart(db, userId)
       .then(data => {
-        console.log(data);
+        console.log(`current cart: `, data);
         data.cart ? orderId = data.cart[0].orders_id : orderId = null;
         return addCart(db, userId, orderId);
       })
       .then(data => {
+        console.log(`added to the cart: `, data[0]);
         return getCartDetails(db, userId)
       })
       .then(data => {
         result.cart = data.cart;
         result.cartTotal = data.cartTotal[0];
-        console.log(result);
+        console.log(`all info in the cart: `, result);
         res.json(result);
       })
       .catch(err => {
@@ -102,7 +88,7 @@ module.exports = (db) => {
 
 
 
-  // add_cart post testing
+  // // add_cart post testing
   // router.get("/test", (req, res) => {
   //   const userId = req.session.user_id
   //   let orderId;
@@ -110,18 +96,18 @@ module.exports = (db) => {
 
   //   isCart(db, userId)
   //     .then(data => {
-  //       console.log(data);
+  //       console.log(`current cart: `, data);
   //       data.cart ? orderId = data.cart[0].orders_id : orderId = null;
   //       return addCart(db, userId, orderId);
   //     })
   //     .then(data => {
-  //       console.log(data[0]);
+  //       console.log(`added to the cart: `, data[0]);
   //       return getCartDetails(db, userId)
   //     })
   //     .then(data => {
   //       result.cart = data.cart;
   //       result.cartTotal = data.cartTotal[0];
-  //       console.log(result);
+  //       console.log(`all info in the cart: `, result);
   //       res.json(result);
   //     })
   //     .catch(err => {

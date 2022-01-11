@@ -6,7 +6,7 @@ const getCartDetails = function(db, userID) {
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
-  WHERE users.id = $1 AND order_time IS NULL;`;
+  WHERE users.id = $1 AND order_time IS NULL`;
 
   const cartTotalQuery = `SELECT order_id, SUM(price) as sub_total
   FROM menu_items
@@ -14,7 +14,7 @@ const getCartDetails = function(db, userID) {
   JOIN orders ON orders.id = order_id
   WHERE user_id = $1 AND order_time IS NULL
   GROUP BY order_id
-  ORDER BY order_id;`
+  ORDER BY order_id`
   ;
 
   const queryParam = [userID];
@@ -50,16 +50,16 @@ exports.getCartDetails = getCartDetails;
 const getItemsByCategory = function (db) {
   const queryString1 = `SELECT thumbnail_url, image_url, item_name, price, category, description
   FROM menu_items
-  WHERE category = 'appetizer';`;
+  WHERE category = 'appetizer'`;
   const queryString2 = `SELECT thumbnail_url, image_url, item_name, price, category, description
   FROM menu_items
-  WHERE category = 'main';`;
+  WHERE category = 'main'`;
   const queryString3 = `SELECT thumbnail_url, image_url, item_name, price, category, description
   FROM menu_items
-  WHERE category = 'drink';`;
+  WHERE category = 'drink'`;
   const queryString4 = `SELECT thumbnail_url, image_url, item_name, price, category, description
   FROM menu_items
-  WHERE category = 'dessert';`;
+  WHERE category = 'dessert'`;
 
   const allMenuData = {};
 
@@ -91,8 +91,8 @@ exports.getItemsByCategory = getItemsByCategory;
 //need info => spiciness, hot, item_size, menu_item_id
 const addCart = function(db, userID, orderId) {
 
-  const newCartQuery = orderId ? `SELECT id FROM orders WHERE user_id = $1;` : `INSERT INTO orders (user_id) VALUES ($1) RETURNING *`;
-  const addItemsQuery = `INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES ($1, $2, $3, $4, $5) RETURNING *;`
+  const newCartQuery = orderId ? `SELECT id FROM orders WHERE user_id = $1` : `INSERT INTO orders (user_id) VALUES ($1) RETURNING *`;
+  const addItemsQuery = `INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`
 
   const queryParam1 = [userID];
   const queryParam2 = [4, true, 'small', orderId, 6];
@@ -112,22 +112,24 @@ const addCart = function(db, userID, orderId) {
 }
 exports.addCart = addCart;
 
+
+//
 const isCart = function(db, userID) {
-  const queryStr = `SELECT id as orders_id FROM orders WHERE user_id = $1 AND order_time IS NULL;`;
+  const queryStr = `SELECT id as orders_id FROM orders WHERE user_id = $1 AND order_time IS NULL`;
 
   const queryParam = [userID];
 
-  const orderPageData = {};
+  const cartData = {};
 
   return db
     .query(queryStr, queryParam)
       .then((data) => {
         if (data.rows.length === 0) {
-          orderPageData.cart = null;
+          cartData.cart = null;
         } else {
-          orderPageData.cart = data.rows;
+          cartData.cart = data.rows;
         }
-        return orderPageData;
+        return cartData;
       })
       .catch(err => {
         console.log(err.message);
