@@ -2,13 +2,14 @@
   position: fixed;
   height: 40px;
   width: 100%;
-  background-color: rgba(161, 145, 64, 0.6);
+  background-color: rgb(223, 201, 92);
   color: #FFFFFF;
   padding-left: 1.5em;
   padding-right: 1.5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 100;
 }
 
 
