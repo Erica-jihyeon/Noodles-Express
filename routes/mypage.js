@@ -11,8 +11,16 @@ module.exports = (db) => {
     const userID = Number(req.session.user_id);
     getCurrentOrdersDetails(db, userID)
       .then(data => {
+        const currentOrders = {};
+        for (const row of data.currentOrderTotal) {
+          if (row.order_id in currentOrders) {
+            currentOrders[row.order_id].push(row);
+          } else {
+            currentOrders[row.order_id] = [row];
+          }
+        }
         templateVars.currentOrder = data.currentOrder;
-        templateVars.currentOrderTotal = data.currentOrderTotal === null ? data.currentOrderTotal : data.currentOrderTotal[0];
+        templateVars.currentOrderTotal = currentOrders;
         return getPrevOrders(db, userID);
       })
       .then(data => {
@@ -27,7 +35,6 @@ module.exports = (db) => {
 
         templateVars.prevOrders = data.prevOrders;
         templateVars.prevOrdersDetail = prevOrders;
-        templateVars.orderIdList = data.orderIdList;
         console.log(templateVars);
         console.log(templateVars.prevOrdersDetail);
 
