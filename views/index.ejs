@@ -2,21 +2,104 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <!-- Meta Information -->
+  <title>Noodles Express - Home Page</title>
 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+
+   <!-- App CSS -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main_menu.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/categories.css" type="text/css" />
+
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
-  <!-- test -->
-  <img src="<%= menu1.thumbnail_url %>">
+  <!-- Top Nav Bar (fixed) -->
+  <nav>
+    <span class="title">
+      <img src="/images/NoodleExpressLogoText.png">
+    </span>
+    <span class="contact">Hello, *user*!</span>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="main">
+    <div class="welcome">
+      <h2 class="statement">Real Food, Made Fresh!</h2>
+    </div>
+    <div class="logo">
+      <img class="photo" src="/images/Noodles_Express_Logo.png">
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="categories">
+      <div class="category"><img id="cat_pic" src="<%= menu1.thumbnail_url %>"></div>
+      <div class="category"><img id="cat_pic" src="<%= menu2.thumbnail_url %>"></div>
+      <div class="category"><img id="cat_pic" src="<%= menu3.thumbnail_url %>"></div>
+      <div class="category"><img id="cat_pic" src="<%= menu4.thumbnail_url %>"></div>
+    </section>
+    <section class="menu">
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+     <div class="items">
+       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+       <div class="info">
+        <text id="dish_name">Pork Ramen</text>
+        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+        <text id="dish_price">$12</text>
+      </div>
+      </div>
+    </section>
+  </main>
 </body>
 
 </html>
