@@ -22,3 +22,51 @@
   border-radius: 0.25rem;
 }
 
+
+.cart_title {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+
+// MENU items after orginal visit
+.menu_category_container {
+}
+
+
+
+// CART
+
+.cartCard {
+  position: fixed;
+  box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
+}
+
+
+.menu_and_cart_container {
+  display: flex;
+  padding-top: 120px;
+  // position: fixed;
+
+  // box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
+
+}
+
+// Customizations
+
+.customizations {
+
+}
+
+.category_nav {
+  position: fixed;
+  z-index: 99;
+  background-color: #fff;
+  margin-top: 40px;
+}
+
+.page_body_container {
+  display: flex;
+  justify-content: flex-start;
+}
