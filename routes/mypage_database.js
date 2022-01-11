@@ -1,3 +1,4 @@
+const { query } = require('express');
 
 const getCurrentOrdersDetails = function(db, userID) {
   const currentOrderQuery = `SELECT orders.id as order_id, order_time, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id
@@ -46,8 +47,18 @@ const getCurrentOrdersDetails = function(db, userID) {
 exports.getCurrentOrdersDetails = getCurrentOrdersDetails;
 
 
-const getPrevOrdersDetails = function(db, userID) {
-  const prevOrdersQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id
+const getPrevOrders = function(db, userID) {
+  const prevOrdersQuery1 = `SELECT DISTINCT orders.id as order_id, order_time as date, pick_up_time, order_status, sum(menu_items.price)
+  FROM customizations
+  JOIN menu_items ON menu_items.id = menu_item_id
+  JOIN orders ON orders.id = order_id
+  JOIN users ON users.id = user_id
+  WHERE users.id = $1 AND pick_up_time IS NOT NULL
+  GROUP BY orders.id
+  ORDER BY order_id DESC;
+  `;
+
+  const prevOrdersQuery2 = `SELECT orders.id as order_id, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot
   FROM customizations
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
@@ -55,38 +66,27 @@ const getPrevOrdersDetails = function(db, userID) {
   WHERE users.id = $1 AND pick_up_time IS NOT NULL
   ORDER BY order_id DESC;
   `;
-
-  const prevOrdersTotalsQuery = `SELECT order_id, SUM(price) as sub_total
-  FROM menu_items
-  JOIN customizations ON menu_items.id = menu_item_id
-  JOIN orders ON orders.id = order_id
-  WHERE user_id = $1 AND pick_up_time IS NOT NULL
-  GROUP BY order_id
-  ORDER BY order_id DESC;
-  `;
-
   const queryParam = [userID];
 
   const templateVars = {};
-
+  const orderIdList = [];
   return db
-    .query(prevOrdersQuery, queryParam)
+    .query(prevOrdersQuery1, queryParam)
     .then((data) => {
       if (data.rows.length === 0) {
         templateVars.prevOrders = null;
       } else {
         templateVars.prevOrders = data.rows;
       }
-      return db.query(prevOrdersTotalsQuery, queryParam)
+      for (const row of data.rows) {
+        orderIdList.push(row.order_id)
+      }
+      templateVars.orderIdList = orderIdList;
+      return db.query(prevOrdersQuery2, queryParam)
     })
     .then((data) => {
-      if (data.rows.length === 0) {
-        templateVars.prevOrdersTotals = null;
-      } else {
-        templateVars.prevOrdersTotals = data.rows;
-      }
+      templateVars.prevDetails = data.rows;
       return templateVars;
     })
-
 }
-exports.getPrevOrdersDetails = getPrevOrdersDetails;
+exports.getPrevOrders = getPrevOrders;
