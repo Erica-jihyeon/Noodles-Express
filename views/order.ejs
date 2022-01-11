@@ -27,141 +27,165 @@
 
 <body>
   <%- include('partials/_header') %>
-    <div class="mainContainer d-flex flex-column">
-      <div class="categoryFilter m-5">
+
+  <section class="page_body_container">
+
+    <!-- category nav -->
+    <section class="category_nav">
+      <div class="categoryFilter">
         <nav class="nav h3">
-          <a class="nav-link active" aria-current="page" href="#">Appetizers</a>
-          <a class="nav-link" href="#">Main</a>
-          <a class="nav-link" href="#">Drinks</a>
-          <a class="nav-link" href="#">Desserts</a>
+          <a class="nav-link appetizer">Appetizer</a>
+          <a class="nav-link main">Main</a>
+          <a class="nav-link drink">Drink</a>
+          <a class="nav-link dessert">Dessert</a>
         </nav>
       </div>
-      <div class="categoryFilter d-flex flex-row w-100">
+    </section>
 
-        <!-- Menu Scroll -->
-        <div class="menuScrollCardContainer d-flex flex-column w-75 ms-5">
-          <div class="menuScrollCard card p-5">
-            <div class="photoAndTitle d-flex flex-row">
-              <div class="image card w-50">
-                <h2>Image </h2>
-              </div>
-              <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
-                <h2 class="itemTitle text-end">
-                  Pork Ramen
-                </h2>
-                <h2 class="itemPrice text-end">
-                  $12.00
-                </h2>
-              </div>
-            </div>
-            <div class="cutomizationTable d-flex flex-column mt-5 mb-5">
-              <table class="table">
-                <h5>Customizations</h5>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td>Cold/Hot</td>
-                    <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                      <label class="btn btn-outline-primary" for="btnradio1">Hot</label>
-
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                      <label class="btn btn-outline-primary" for="btnradio2">Cold</label>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td class="">Size</td>
-                    <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-                      <label class="btn btn-outline-primary" for="btnradio3">S</label>
-
-                      <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                      <label class="btn btn-outline-primary" for="btnradio4">M</label>
-
-                      <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off">
-                      <label class="btn btn-outline-primary" for="btnradio5">L</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
-                    <td>Spicyness</td>
-                    <td class="dropdown">
-                      <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Spicyness
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Mild</a></li>
-                        <li><a class="dropdown-item" href="#">Medium</a></li>
-                        <li><a class="dropdown-item" href="#">Spicy</a></li>
-                        <li><a class="dropdown-item" href="#">Extra Spicy</a></li>
-                        <li><a class="dropdown-item" href="#">Extra Extra Spicy</a></li>
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+    <!-- menu showing -->
+    <% for(const item of main) { %>
+    <section class="menuScrollCardContainer d-flex flex-column w-75 ms-5">
+      <div class="menuScrollCard card p-5">
+        <div class="photoAndTitle d-flex flex-row">
+          <div class="image card w-50">
+            <img id="dish_pic" src='<%= item.thumbnail_url %>'>
+          </div>
+          <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
+            <p class="itemTitle text-end"><%= item.item_name %></p>
+            <p class="itemPrice text-end">$<%= item.price.toFixed(2) %></p>
+            <p class="itemDescr text-end"><%= item.description %></p>
             <div class="addToCartButton d-flex justify-content-end">
-              <i class="bi bi-x-lg h3 m-3"></i>
               <i class="bi bi-cart-plus h3 m-3"></i>
             </div>
           </div>
         </div>
-        <!-- Cart -->
-        <div class="cart w-50 ms-5 me-5">
-          <!--  cartCard is to seperate the height of this card-->
-          <div class="cartCard card">
-            <div class="card-body">
-              <table class="table">
-                <h5>Cart</h5>
-                <thead>
-                  <tr>
-                    <th scope="col">Delete</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>X</td>
-                    <td>Pork Ramen</td>
-                    <td>$12.00</td>
-                  </tr>
-                  <tr>
-                    <td>X</td>
-                    <td>Mushroom Fried Noodle</td>
-                    <td>$12.00</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td></td>
-                    <td class="text-end">Sub-Total</td>
-                    <td>$26.00</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td class="text-end">Tax@5%</td>
-                    <td>$1.30</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td class="text-end">Total</td>
-                    <td>$27.30</td>
-                  </tr>
-                </tfoot>
-              </table>
-              <button type="button" class="btn btn-primary w-100">Order Now</button>
-            </div>
+      </div>
+    </section>
+    <% } %>
+    <section class='menu_category_container'>
+      <!-- will be done by app.js -->
+    </section>
+
+    <!-- cart -->
+    <section class="cart w-50 ms-5 me-5">
+      <div class="cartCard card">
+        <div class="card_body">
+          <table class="table">
+            <h5>Cart</h5>
+            <thead>
+              <tr>
+                <th scope="col">Delete</th>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>X</td>
+                <td>Pork Ramen</td>
+                <td>$12.00</td>
+              </tr>
+              <tr>
+                <td>X</td>
+                <td>Mushroom Fried Noodle</td>
+                <td>$12.00</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td class="text-end">Sub-Total</td>
+                <td>$26.00</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="text-end">Tax@5%</td>
+                <td>$1.30</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="text-end">Total</td>
+                <td>$27.30</td>
+              </tr>
+            </tfoot>
+          </table>
+          <button type="button" class="btn btn-primary w-100">Order Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customizations -->
+    <section class=customizations d-flex flex-column w-75 ms-5">
+      <div class="menu_description card p-5">
+        <div class="photoAndTitle d-flex flex-row">
+          <div class="image card w-50">
+            <img id="dish_pic" src='<%= drink[0].thumbnail_url %>'>
+          </div>
+          <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
+            <p class="itemTitle text-end"><%= drink[0].item_name %></p>
+            <p class="itemPrice text-end">$<%= drink[0].price.toFixed(2) %></p>
+            <p class="itemDescr text-end"><%= drink[0].description %></p>
           </div>
         </div>
       </div>
-    </div>
-    <div id='test'></div>
+
+      <div class="cutomizations_confirm d-flex flex-column mt-5 mb-5">
+        <table class="table">
+          <h5>Customizations</h5>
+          <tbody>
+            <tr>
+              <td></td>
+              <td>Cold/Hot</td>
+              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1">Hot</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">Cold</label>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="">Size</td>
+              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio3">S</label>
+
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio4">M</label>
+
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio5">L</label>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
+              <td>Spicyness</td>
+              <td class="dropdown">
+                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Spicyness
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Mild</a></li>
+                  <li><a class="dropdown-item" href="#">Medium</a></li>
+                  <li><a class="dropdown-item" href="#">Spicy</a></li>
+                  <li><a class="dropdown-item" href="#">Extra Spicy</a></li>
+                  <li><a class="dropdown-item" href="#">Extra Extra Spicy</a></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="confirm_button d-flex justify-content-end">
+          <i class="bi bi-x-lg h3 m-3"></i>
+          <i class="bi bi-cart-plus h3 m-3"></i>
+        </div>
+
+      </div> <!-- customizations_confirm end -->
+    </section> <!-- customizations end -->
+  </section> <!-- page_body_container end -->
 
 </body>
 
