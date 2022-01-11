@@ -16,10 +16,22 @@ module.exports = (db) => {
         return getPrevOrders(db, userID);
       })
       .then(data => {
+        const prevOrders = {};
+        for (const row of data.prevDetails) {
+          if (row.order_id in prevOrders) {
+            prevOrders[row.order_id].push(row);
+          } else {
+            prevOrders[row.order_id] = [row];
+          }
+        }
+
         templateVars.prevOrders = data.prevOrders;
-        templateVars.prevOrdersDetail = data.prevDetails;
+        templateVars.prevOrdersDetail = prevOrders;
         templateVars.orderIdList = data.orderIdList;
         console.log(templateVars);
+        console.log(templateVars.prevOrdersDetail);
+
+
         res.render('mypage', templateVars);
       })
       .catch(err => {
