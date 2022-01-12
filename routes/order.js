@@ -107,21 +107,29 @@ module.exports = (db) => {
   router.post("/delete_cart", (req, res) => {
     const userId = req.session.user_id
     // need to get from front-end
-    let customId = 16;
+    // let customId = 16;
+    console.log(req.body);
+    const customId = req.body.data;
     const result = {};
 
     isCart(db, userId)
       .then(data => {
         console.log(`current cart: `, data);
-        return deleteItemFromCart(db, customId);
+        return deleteItemFromCart(db, customId, data.cart[0].orders_id);
       })
       .then(data => {
-        console.log(`deleted from the cart: `, data[0]);
-        return getCartDetails(db, userId)
+        console.log(`left in cart: `, data.length);
+        if (data.length === 0) {
+          result.cart = null;
+          result.cartTotal = null;
+          return result;
+        } else {
+          return getCartDetails(db, userId)
+        }
       })
       .then(data => {
-        result.cart = data.cart;
-        result.cartTotal = data.cartTotal[0];
+        result.cart = data ? data.cart : null;
+        result.cartTotal = data ? data.cartTotal[0] : null;
         console.log(`all info in the cart: `, result);
         res.json(result);
       })

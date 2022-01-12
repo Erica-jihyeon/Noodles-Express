@@ -138,12 +138,17 @@ const isCart = function(db, userID) {
 exports.isCart = isCart;
 
 
-const deleteItemFromCart = function(db, customId) {
-  const queryStr = `DELETE FROM customizations WHERE id=$1 RETURNING*`;
+const deleteItemFromCart = function(db, customId, orderId) {
+  const queryStr = `DELETE FROM customizations WHERE id=$1`;
+  const queryStr2 = `SELECT id FROM customizations WHERE order_id=$1`
   const queryParam = [customId];
+  const queryParam2 = [orderId];
 
   return db
     .query(queryStr, queryParam)
+      .then((data) => {
+        return db.query(queryStr2, queryParam2);
+      })
       .then((data) => {
         return data.rows;
       })
