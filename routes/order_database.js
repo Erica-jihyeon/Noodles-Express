@@ -152,3 +152,19 @@ const deleteItemFromCart = function(db, customId) {
       });
 }
 exports.deleteItemFromCart = deleteItemFromCart;
+
+const orderNow = function(db, orderTime, orderId) {
+
+  const queryStr = `UPDATE orders SET order_time=$1, order_status='Preparing your meal' WHERE id=$2 RETURNING*`;
+  const queryParam = [orderTime, orderId];
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return data.rows[0];
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.orderNow = orderNow;
