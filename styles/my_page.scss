@@ -1,0 +1,40 @@
+
+.mainContainer {
+  margin: 0 !important;
+}
+
+.currentOrderContainer {
+  margin-top: 0 !important;
+  padding-top: 3em;
+  height: fit-content;
+
+}
+
+.currentOrderTitle {
+  box-sizing: content-box;
+  font-size: x-large;
+}
+
+.currentOrder {
+  background-color: rgb(255, 234, 8);
+  font-size: xx-small;
+  height: fit-content;
+  box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
+
+}
+
+.pastOrder {
+  background-color: rgb(255, 234, 8);
+}
+
+.card-body {
+  object-fit: contain;
+  height: fit-content;
+  background-color: rgb(244, 244, 244);
+
+ }
+
+
+.pastOrderCardContainer {
+  font-size: xx-small;
+}
