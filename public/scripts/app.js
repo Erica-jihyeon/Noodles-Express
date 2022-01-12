@@ -27,29 +27,29 @@
       categoryMenu('dessert');
     });
 
-    $('.deleteBtn').on('click', () => {
-      // prevent the submit button from submitting
-      console.log('hi');
-      // event.preventDefault();
-      // const data = $(this).attr('data-custom-id');
+    // $('.deleteBtn').on('click', () => {
+    //   // prevent the submit button from submitting
+    //   console.log('hi');
+    //   // event.preventDefault();
+    //   // const data = $(this).attr('data-custom-id');
 
-      // console.log('data is here', data)
+    //   // console.log('data is here', data)
 
-      //  $.post("/order/delete_cart", {data})
-      //   .then(() => { loadCart(); } )
-      //
-      //
-      //   $.ajax({
-      //     type: "POST",
-      //     url: `/delete_cart`,
-      //     data: data,
-      //   })
-      //     .then((response) => {
-      //       loadCart()
-      //     })
-      //     .catch((error) => {
-      //     });
-    });
+    //   //  $.post("/order/delete_cart", {data})
+    //   //   .then(() => { loadCart(); } )
+    //   //
+    //   //
+    //   //   $.ajax({
+    //   //     type: "POST",
+    //   //     url: `/delete_cart`,
+    //   //     data: data,
+    //   //   })
+    //   //     .then((response) => {
+    //   //       loadCart()
+    //   //     })
+    //   //     .catch((error) => {
+    //   //     });
+    // });
 
 
   });
@@ -64,13 +64,19 @@
     //$test.append(`<h1>${data[0].description}</h1>`);
     const appendContent = renderCart(data);
     const appendSum = renderCartSum(data);
-    $test.append(appendContent).on('click', '.deleteBtn', (event) => {
+    $test.append(appendContent).off('click').on('click', '.deleteBtn', (event) => {
       event.preventDefault();
       console.log($('.deleteBtn'))
       const data = $('.deleteBtn').attr('data-custom-id');
       console.log('data is here', data);
-      $.post("/order/delete_cart", {data})
-      .then((data) => { showCart(data); } )
+      $.post("/order/delete_cart", { data })
+        .then((data) => {
+          console.log(data);
+          showCart(data);
+        })
+        .catch((error) => {
+          console.log('error = ', error);
+        });
     });
     $cartRowsSum.append(appendSum);
   }
@@ -87,7 +93,7 @@
       </tr>
       <tr>
         <td></td>
-        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot']?'Hot':'Cold'}</td>
+        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot'] ? 'Hot' : 'Cold'}</td>
         <td></td>
       </tr>
       <tr>
@@ -117,16 +123,16 @@
   <tr>
     <td></td>
     <td class="text-end">Tax@5%</td>
-    <td>$${Number(data.cartTotal.sub_total)*0.05.toFixed(2)}</td>
+    <td>$${Number(data.cartTotal.sub_total) * 0.05.toFixed(2)}</td>
   </tr>
   <tr>
     <td></td>
     <td class="text-end">Total</td>
-    <td>$${(Number(data.cartTotal.sub_total)*0.05 + Number(data.cartTotal.sub_total)).toFixed(2)}</td>
+    <td>$${(Number(data.cartTotal.sub_total) * 0.05 + Number(data.cartTotal.sub_total)).toFixed(2)}</td>
   </tr>
     `
-  return appendContent;
-}
+    return appendContent;
+  }
 
 
 
@@ -173,55 +179,60 @@
             <tr>
               <td></td>
               <td>Cold/Hot</td>
-              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Hot</label>
+              <td>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" checked>
+              <label class="btn btn-outline-primary" for="${data[i].item_name}1">Hot</label>
 
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2">Cold</label>
+              <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="${data[i].item_name}2">Cold</label>
+              </div>
               </td>
             </tr>
             <tr>
               <td></td>
               <td class="">Size</td>
               <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio3">S</label>
+                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="${data[i].item_name}3">S</label>
 
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio4">M</label>
+                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="${data[i].item_name}4">M</label>
 
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio5">L</label>
+                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="${data[i].item_name}5">L</label>
               </td>
             </tr>
             <tr>
               <td></td>
               <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
               <td>Spicyness</td>
-              <td class="dropdown">
-                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Spicyness
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Mild</a></li>
-                  <li><a class="dropdown-item" href="#">Medium</a></li>
-                  <li><a class="dropdown-item" href="#">Spicy</a></li>
-                  <li><a class="dropdown-item" href="#">Extra Spicy</a></li>
-                  <li><a class="dropdown-item" href="#">Extra Extra Spicy</a></li>
-                </ul>
-              </td>
+              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off" checked>
+              <label class="btn btn-outline-primary" for="${data[i].item_name}6">🌶️</label>
+
+              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}7" autocomplete="off">
+              <label class="btn btn-outline-primary" for="${data[i].item_name}7">🌶️🌶️</label>
+
+              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}8" autocomplete="off">
+              <label class="btn btn-outline-primary" for="${data[i].item_name}8">🌶️🌶️🌶️</label>
+
+              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}9" autocomplete="off">
+              <label class="btn btn-outline-primary" for="${data[i].item_name}9">🌶️🌶️🌶️🌶️</label>
+
+              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
+              <label class="btn btn-outline-primary" for="${data[i].item_name}10">🌶️🌶️🌶️🌶️🌶️</label>
+            </td>
             </tr>
           </tbody>
         </table>
         <div class="confirm_button d-flex justify-content-end">
-          <i class="bi bi-x-lg h3 m-3"></i>
-          <i class="bi bi-cart-plus h3 m-3"></i>
+          <button class="bi bi-cart-plus h3 m-3"></button>
         </div>
 
       </div> <!-- customizations_confirm end -->
         </div>
+
 
         `;
     }

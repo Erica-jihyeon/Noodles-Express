@@ -129,7 +129,8 @@ module.exports = (db) => {
       })
       .then(data => {
         result.cart = data ? data.cart : null;
-        result.cartTotal = data ? data.cartTotal[0] : null;
+        console.log('data = ', data)
+        result.cartTotal = data.cart ? data.cartTotal[0] : null;
         console.log(`all info in the cart: `, result);
         res.json(result);
       })
