@@ -4,14 +4,13 @@
   $(() => {
 
     const loadCart = function() {
-      // $(".all-tweets").empty();
       $.getJSON('/order/cart/6')
         .then((data) => {
           console.log(data)
           showCart(data);
         })
     }
-    //first data load
+    //first existing cart load
     loadCart();
 
     $('.appetizer').on('click', () => {
@@ -27,29 +26,27 @@
       categoryMenu('dessert');
     });
 
-    // $('.deleteBtn').on('click', () => {
-    //   // prevent the submit button from submitting
-    //   console.log('hi');
-    //   // event.preventDefault();
-    //   // const data = $(this).attr('data-custom-id');
 
-    //   // console.log('data is here', data)
+    let pickUpTime;
+    let orderStatus;
+    $('.order_now_button').on('click', () => {
+      $.post('/order/order_now')
+        .then((data) => {
+          // console.log(data);
+          pickUpTime = data.orderData.pick_up_time;
+          orderStatus = data.orderData.order_status;
+          console.log(pickUpTime, orderStatus);
+          //need to send a message
 
-    //   //  $.post("/order/delete_cart", {data})
-    //   //   .then(() => { loadCart(); } )
-    //   //
-    //   //
-    //   //   $.ajax({
-    //   //     type: "POST",
-    //   //     url: `/delete_cart`,
-    //   //     data: data,
-    //   //   })
-    //   //     .then((response) => {
-    //   //       loadCart()
-    //   //     })
-    //   //     .catch((error) => {
-    //   //     });
-    // });
+          return $.getJSON('/order/cart/6')
+        })
+        .then((data) => {
+          showCart(data);
+        })
+        .catch((error) => {
+          console.log('error = ', error);
+        });
+    })
 
 
   });
@@ -61,14 +58,15 @@
     const $cartRowsSum = $('#cartRowsSum');
     $test.empty();
     $cartRowsSum.empty();
-    //$test.append(`<h1>${data[0].description}</h1>`);
-    const appendContent = renderCart(data);
-    const appendSum = renderCartSum(data);
+    //check if the cart is empty or not, if it's empty don't call renderCart()
+    const appendContent = data.cart !== null ? renderCart(data) : '';
+    const appendSum = data.cart !== null ? renderCartSum(data) : '';
+
     $test.append(appendContent).off('click').on('click', '.deleteBtn', (event) => {
       event.preventDefault();
-      console.log($('.deleteBtn'))
+
       const data = $('.deleteBtn').attr('data-custom-id');
-      console.log('data is here', data);
+
       $.post("/order/delete_cart", { data })
         .then((data) => {
           console.log(data);
@@ -82,33 +80,35 @@
   }
 
   const renderCart = (data) => {
-    let appendContent = '';
-    for (let i = 0; i < data.cart.length; i++) {
-      appendContent +=
-        `
+
+      let appendContent = '';
+      for (let i = 0; i < data.cart.length; i++) {
+        appendContent +=
+          `
+          <tr>
+          <td><button class="deleteBtn" data-custom-id=${data.cart[i].custom_id}>X</button></td>
+          <td>${data.cart[i]['item']}</td>
+          <td>${data.cart[i]['price'].toFixed(2)}</td>
+        </tr>
         <tr>
-        <td><button class="deleteBtn" data-custom-id=${data.cart[i].custom_id}>X</button></td>
-        <td>${data.cart[i]['item']}</td>
-        <td>${data.cart[i]['price'].toFixed(2)}</td>
-      </tr>
-      <tr>
+          <td></td>
+          <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot'] ? 'Hot' : 'Cold'}</td>
+          <td></td>
+        </tr>
+        <tr>
         <td></td>
-        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot'] ? 'Hot' : 'Cold'}</td>
+        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['item_size']}</td>
         <td></td>
       </tr>
       <tr>
       <td></td>
-      <td class="ps-3 pt-0 pb-0">+${data.cart[i]['item_size']}</td>
+      <td class="ps-3 pt-0 pb-0">+${data.cart[i]['spiciness']}</td>
       <td></td>
     </tr>
-    <tr>
-    <td></td>
-    <td class="ps-3 pt-0 pb-0">+${data.cart[i]['spiciness']}</td>
-    <td></td>
-  </tr>
-        `;
-    }
-    return appendContent;
+          `;
+      }
+      return appendContent;
+
   }
 
   const renderCartSum = (data) => {
@@ -134,12 +134,9 @@
     return appendContent;
   }
 
-
-
-
-
-
   /* Load cart end */
+
+
 
   /* Load menu */
 
@@ -150,7 +147,47 @@
     $menuContainer.empty();
     // $test.append(`<h1>${data[0].description}</h1>`);
     const appendContent = renderMenu(data);
+    const customData = {
+      hot_cold: null,
+      size: null,
+      spiciness: null
+    };
+
     $container.append(appendContent);
+
+    $('.hot_cold_button').on('click',(event) => {
+      customData.hot_cold = $(event.target).attr('data');
+      console.log(customData);
+    });
+
+    $('.size_button').on('click', (event) => {
+      customData.size = $(event.target).attr('data');
+      console.log(customData);
+    });
+
+    $('.spicy_button').on('click', (event) => {
+      customData.spiciness = $(event.target).attr('data');
+      console.log(customData);
+    });
+
+    $('.confirm_button__').on('click', (event) => {
+      event.preventDefault();
+      if (Object.values(customData).some(e => e === null)) {
+        alert('need to finish the customizations');
+      } else {
+        customData.menu_id = $(event.target).attr('data');
+        console.log(customData);
+        $.post('/order/add_cart', customData)
+        .then((data) => {
+          showCart(data);
+        })
+        .then()
+        .catch((error) => {
+          console.log('error = ', error);
+        });
+      }
+    });
+
   }
 
   const renderMenu = (data) => {
@@ -158,6 +195,7 @@
     let appendContent = '';
     console.log(data)
     for (let i = 0; i < data.length; i++) {
+      console.log(data[i]);
       appendContent +=
         `
         <div class="menuScrollCard card p-5">
@@ -181,11 +219,11 @@
               <td>Cold/Hot</td>
               <td>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" for="${data[i].item_name}1">Hot</label>
+              <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" data=${true}>
+              <label class="btn btn-outline-primary" data=${true} for="${data[i].item_name}1">Hot</label>
 
-              <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}2">Cold</label>
+              <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off" data=${false}>
+              <label class="btn btn-outline-primary" data=${false} for="${data[i].item_name}2">Cold</label>
               </div>
               </td>
             </tr>
@@ -193,13 +231,13 @@
               <td></td>
               <td class="">Size</td>
               <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off" checked>
+                <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
                 <label class="btn btn-outline-primary" for="${data[i].item_name}3">S</label>
 
-                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}4" autocomplete="off">
+                <input type="radio" class="btn-check size_button" data="med" name="${data[i].item_name}-size" id="${data[i].item_name}4" autocomplete="off">
                 <label class="btn btn-outline-primary" for="${data[i].item_name}4">M</label>
 
-                <input type="radio" class="btn-check" name="${data[i].item_name}-size" id="${data[i].item_name}5" autocomplete="off">
+                <input type="radio" class="btn-check size_button" data="large" name="${data[i].item_name}-size" id="${data[i].item_name}5" autocomplete="off">
                 <label class="btn btn-outline-primary" for="${data[i].item_name}5">L</label>
               </td>
             </tr>
@@ -208,26 +246,26 @@
               <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
               <td>Spicyness</td>
               <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off" checked>
+              <input type="radio" class="btn-check spicy_button" data="1" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off">
               <label class="btn btn-outline-primary" for="${data[i].item_name}6">🌶️</label>
 
-              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}7" autocomplete="off">
+              <input type="radio" class="btn-check spicy_button" data="2" name="${data[i].item_name}-spicyness" id="${data[i].item_name}7" autocomplete="off">
               <label class="btn btn-outline-primary" for="${data[i].item_name}7">🌶️🌶️</label>
 
-              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}8" autocomplete="off">
+              <input type="radio" class="btn-check spicy_button" data="3" name="${data[i].item_name}-spicyness" id="${data[i].item_name}8" autocomplete="off">
               <label class="btn btn-outline-primary" for="${data[i].item_name}8">🌶️🌶️🌶️</label>
 
-              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}9" autocomplete="off">
+              <input type="radio" class="btn-check spicy_button" data="4" name="${data[i].item_name}-spicyness" id="${data[i].item_name}9" autocomplete="off">
               <label class="btn btn-outline-primary" for="${data[i].item_name}9">🌶️🌶️🌶️🌶️</label>
 
-              <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
+              <input type="radio" class="btn-check spicy_button" data="5" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
               <label class="btn btn-outline-primary" for="${data[i].item_name}10">🌶️🌶️🌶️🌶️🌶️</label>
             </td>
             </tr>
           </tbody>
         </table>
         <div class="confirm_button d-flex justify-content-end">
-          <button class="bi bi-cart-plus h3 m-3"></button>
+          <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
         </div>
 
       </div> <!-- customizations_confirm end -->
@@ -251,8 +289,8 @@
 
   // default load main menu
   categoryMenu('main');
-
   /* load menu end */
+
 
 })(jQuery);
 
