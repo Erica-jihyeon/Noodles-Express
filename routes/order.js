@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow, findUserInfo, pickupInfo } = require('./order_database');
+const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow, findUserInfo } = require('./order_database');
 
 module.exports = (db) => {
 
@@ -165,33 +165,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
-  router.post("/pickup", (req, res) => {
-    //need to get from the owner (userId, orderId, cookingTime)
-    const userId = req.session.user_id;
-    let cookingTime = 30;
-    let orderId = 10;
-    let result = {};
-
-    pickupInfo(cookingTime, orderId)
-      .then(data => {
-        result.orderData = data;
-        return findUserInfo(db, userId);
-      })
-      .then(data => {
-        result.users = data;
-        console.log(`order status`, result);
-        res.json(result);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-
-
 
   return router;
 };
