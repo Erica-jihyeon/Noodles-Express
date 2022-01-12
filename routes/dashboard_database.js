@@ -48,13 +48,13 @@ exports.getCurrentOrdersDetails = getCurrentOrdersDetails;
 
 
 const getPrevOrders = function(db, userID) {
-  const prevOrdersQuery1 = `SELECT DISTINCT orders.id as order_id, order_time as date, pick_up_time, order_status, sum(menu_items.price)
+  const prevOrdersQuery1 = `SELECT DISTINCT orders.id as order_id, order_time as date, pick_up_time, order_status, sum(menu_items.price), users.phone, CONCAT(users.first_name,' ', users.last_name) as name
   FROM customizations
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
   WHERE users.id = $1 AND pick_up_time IS NOT NULL
-  GROUP BY orders.id
+  GROUP BY orders.id, users.phone, users.first_name, users.last_name
   ORDER BY order_id DESC;
   `;
 
