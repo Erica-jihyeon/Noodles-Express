@@ -6,9 +6,10 @@
     const loadCart = function() {
       // $(".all-tweets").empty();
       $.getJSON('/order/cart/6')
-      .then((data) => {
-        showCart(data);
-      })
+        .then((data) => {
+          console.log(data)
+          showCart(data);
+        })
     }
     //first data load
     loadCart();
@@ -26,87 +27,117 @@
       categoryMenu('dessert');
     });
 
+    $('.deleteBtn').on('click', () => {
+      // prevent the submit button from submitting
+      console.log('hi');
+      // event.preventDefault();
+      // const data = $(this).attr('data-custom-id');
+
+      // console.log('data is here', data)
+
+      //  $.post("/order/delete_cart", {data})
+      //   .then(() => { loadCart(); } )
+      //
+      //
+      //   $.ajax({
+      //     type: "POST",
+      //     url: `/delete_cart`,
+      //     data: data,
+      //   })
+      //     .then((response) => {
+      //       loadCart()
+      //     })
+      //     .catch((error) => {
+      //     });
+    });
+
 
   });
 
 
-////////////////////////
+  /* load cart */
   const showCart = (data) => {
-    const $test = $('#test');
+    const $test = $('#cartRows');
+    const $cartRowsSum = $('#cartRowsSum');
     $test.empty();
-    // $test.append(`<h1>${data[0].description}</h1>`);
+    $cartRowsSum.empty();
+    //$test.append(`<h1>${data[0].description}</h1>`);
     const appendContent = renderCart(data);
-    $test.append(appendContent);
+    const appendSum = renderCartSum(data);
+    $test.append(appendContent).on('click', '.deleteBtn', (event) => {
+      event.preventDefault();
+      console.log($('.deleteBtn'))
+      const data = $('.deleteBtn').attr('data-custom-id');
+      console.log('data is here', data);
+      $.post("/order/delete_cart", {data})
+      .then((data) => { showCart(data); } )
+    });
+    $cartRowsSum.append(appendSum);
   }
 
   const renderCart = (data) => {
-    console.log(data);
     let appendContent = '';
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.cart.length; i++) {
       appendContent +=
         `
-          <div class="items">
-            <img id="dish_pic" src="${data[i].order_id}">
-            <div class="info">
-              <text id="dish_name"></text>
-              <text id="dish_description"></text>
-              <text id="dish_price"></text>
-          </div>`;
+        <tr>
+        <td><button class="deleteBtn" data-custom-id=${data.cart[i].custom_id}>X</button></td>
+        <td>${data.cart[i]['item']}</td>
+        <td>${data.cart[i]['price'].toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot']?'Hot':'Cold'}</td>
+        <td></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td class="ps-3 pt-0 pb-0">+${data.cart[i]['item_size']}</td>
+      <td></td>
+    </tr>
+    <tr>
+    <td></td>
+    <td class="ps-3 pt-0 pb-0">+${data.cart[i]['spiciness']}</td>
+    <td></td>
+  </tr>
+        `;
     }
     return appendContent;
   }
-/////////////////////////
 
-    // compose Button at the top right
-    $(".photoAndTitle").click(function() {
-      // makes tweet form slide up and down
-      $('.cutomizations_confirm').slideToggle(function() {
-      });
-    });
+  const renderCartSum = (data) => {
+    let appendContent = '';
+    appendContent += `
 
-  const categoryMenu = (category) => {
+    <tr>
+    <td></td>
+    <td class="text-end">Sub-Total</td>
+    <td>$${Number(data.cartTotal.sub_total).toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="text-end">Tax@5%</td>
+    <td>$${Number(data.cartTotal.sub_total)*0.05.toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="text-end">Total</td>
+    <td>$${(Number(data.cartTotal.sub_total)*0.05 + Number(data.cartTotal.sub_total)).toFixed(2)}</td>
+  </tr>
+    `
+  return appendContent;
+}
 
-    $.getJSON('order/data', (data) => {
-      // console.log(data[category]);
-      showMenu(data[category]);
-    })
 
-  }
 
-  // const showMenu = (data) => {
-  //   const $test = $('#test');
-  //   $test.empty();
-  //   // $test.append(`<h1>${data[0].description}</h1>`);
-  //   const appendContent = renderMenu(data);
-  //   $test.append(appendContent);
-  // }
 
-  // const renderMenu = (data) => {
-  //   console.log(data);
-  //   let appendContent = '';
-  //   for (let i = 0; i < data.length; i++) {
-  //     appendContent +=
-  //       `
-  //         <div class="items">
-  //           <img id="dish_pic" src="${data[i].thumbnail_url}">
-  //           <div class="info">
-  //             <text id="dish_name">${data[i].item_name}</text>
-  //             <text id="dish_description">${data[i].description}</text>
-  //             <text id="dish_price">${data[i].price}</text>
-  //         </div>`;
-  //   }
-  //   return appendContent;
-  // }
 
-  // const showMenu = (data) => {
-  //   const $menuContainer = $('.menuScrollCardContainer');
-  //   $menuContainer.empty();
-  //   // $test.append(`<h1>${data[0].description}</h1>`);
-  //   const appendContent = renderMenu(data);
-  //   $menuContainer.append(appendContent);
-  // }
 
-   const showMenu = (data) => {
+  /* Load cart end */
+
+  /* Load menu */
+
+  const showMenu = (data) => {
     const $container = $('.menu_category_container');
     $container.empty();
     const $menuContainer = $('.menuScrollCardContainer');
@@ -119,6 +150,7 @@
   const renderMenu = (data) => {
     // console.log(data);
     let appendContent = '';
+    console.log(data)
     for (let i = 0; i < data.length; i++) {
       appendContent +=
         `
@@ -131,9 +163,6 @@
             <p class="itemTitle text-end">${data[i].item_name}</p>
             <p class="itemPrice text-end">$${data[i].price.toFixed(2)}</p>
             <p class="itemDescr text-end">${data[i].description}</p>
-            <div class="addToCartButton d-flex justify-content-end">
-              <i class="bi bi-cart-plus h3 m-3"></i>
-            </div>
           </div>
         </div>
 
@@ -196,21 +225,25 @@
 
         `;
     }
-    console.log(appendContent)
+    //console.log(appendContent)
     return appendContent;
+  }
+
+  const categoryMenu = (category) => {
+
+    $.getJSON('order/data', (data) => {
+      // console.log(data[category]);
+      showMenu(data[category]);
+    })
+
   }
 
   // default load main menu
   categoryMenu('main');
-   // const loadMenu = (category) => {
-  //   console.log(category);
-  //   // $.getJSON('/order/data')
-  //   //   .then((data) => {
-  //   //     console.log(category);
-  //   //     console.log(data);
-  //   //     const $test = $('#test');
-  //   //     $test.append(`<h1>${data.cartTotal.sub_total}</h1>`);
-  //   //   })
-  // };
 
-}) (jQuery);
+  /* load menu end */
+
+})(jQuery);
+
+
+
