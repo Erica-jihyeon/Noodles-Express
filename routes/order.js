@@ -22,7 +22,6 @@ module.exports = (db) => {
         orderPageData.drink = data.drink;
         orderPageData.dessert = data.dessert;
         res.render('order');
-        res.json(orderPageData);
       })
       .catch(err => {
         res
@@ -32,21 +31,21 @@ module.exports = (db) => {
   });
 
 
-  // router.get("/:id", (req, res) => {
-  //   const cartData = {};
-  //   getCartDetails(db, req.session.user_id)
-  //     .then(data => {
-  //       // console.log(data);
-  //       cartData.cart = data.cart;
-  //       cartData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
-  //       return res.json(cartData);
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+  router.get("/cart/:id", (req, res) => {
+    const cartData = {};
+    getCartDetails(db, req.session.user_id)
+      .then(data => {
+        // console.log(data);
+        cartData.cart = data.cart;
+        cartData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
+        res.json(cartData);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
 
 
   router.get("/data", (req, res) => {
