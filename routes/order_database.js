@@ -161,7 +161,7 @@ exports.deleteItemFromCart = deleteItemFromCart;
 
 const orderNow = function(db, orderId) {
 
-  const queryStr = `UPDATE orders SET order_time=current_timestamp, order_status='Preparing your meal' WHERE id=$1 RETURNING*`;
+  const queryStr = `UPDATE orders SET order_time=current_timestamp WHERE id=$1 RETURNING*`;
   const queryParam = [orderId];
 
   return db
@@ -190,23 +190,6 @@ const findUserInfo = function(db, userId) {
       });
 }
 exports.findUserInfo = findUserInfo;
-
-
-const pickupInfo = function(db, cookingTime, orderId) {
-
-  const queryStr = `UPDATE orders SET pick_up_time=order_time + $1 * INTERVAL '1 min', order_status='Preparing your meal' WHERE id=$2 RETURNING*`;
-  const queryParam = [cookingTime, orderId];
-
-  return db
-    .query(queryStr, queryParam)
-      .then((data) => {
-        return data.rows[0];
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-}
-exports.pickupInfo = pickupInfo;
 
 
 // UPDATE orders SET order_time='2022-01-09T08:00:00.000Z', pick_up_time=order_time + 30 * INTERVAL '1 min', order_status='Preparing your meal' WHERE id=10 RETURNING*
