@@ -43,6 +43,14 @@
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
 }
 
+.w-50 {
+  width: 50vw!important;
+  height: fit-content;
+}
+.ms-5 {
+margin-left: 3rem!important;
+margin-right: 3rem!important;
+}
 
 .menu_and_cart_container {
   display: flex;
