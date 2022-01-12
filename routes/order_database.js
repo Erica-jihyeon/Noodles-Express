@@ -1,7 +1,7 @@
 const order = require('./order');
 
 const getCartDetails = function(db, userID) {
-  const cartQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id, customizations.id as custom_id
+  const cartQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id, customizations.id as custom_id, menu_items.id as menu_id
   FROM customizations
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
@@ -48,16 +48,16 @@ exports.getCartDetails = getCartDetails;
 
 
 const getItemsByCategory = function (db) {
-  const queryString1 = `SELECT thumbnail_url, image_url, item_name, price, category, description
+  const queryString1 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'appetizer'`;
-  const queryString2 = `SELECT thumbnail_url, image_url, item_name, price, category, description
+  const queryString2 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'main'`;
-  const queryString3 = `SELECT thumbnail_url, image_url, item_name, price, category, description
+  const queryString3 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'drink'`;
-  const queryString4 = `SELECT thumbnail_url, image_url, item_name, price, category, description
+  const queryString4 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'dessert'`;
 
@@ -89,13 +89,14 @@ exports.getItemsByCategory = getItemsByCategory;
 
 //////////////////
 //need info => spiciness, hot, item_size, menu_item_id
-const addCart = function(db, userID, orderId) {
+const addCart = function(db, userID, orderId, custom) {
+  console.log(custom);
 
   const newCartQuery = orderId ? `SELECT id FROM orders WHERE user_id = $1` : `INSERT INTO orders (user_id) VALUES ($1) RETURNING *`;
   const addItemsQuery = `INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`
 
   const queryParam1 = [userID];
-  const queryParam2 = [4, true, 'small', orderId, 6];
+  const queryParam2 = [custom.spiciness, custom.hot_cold, custom.size, orderId, custom.menu_id];
   return db
     .query(newCartQuery, queryParam1)
       .then((data) => {
@@ -158,10 +159,10 @@ const deleteItemFromCart = function(db, customId, orderId) {
 }
 exports.deleteItemFromCart = deleteItemFromCart;
 
-const orderNow = function(db, orderTime, orderId) {
+const orderNow = function(db, orderId) {
 
-  const queryStr = `UPDATE orders SET order_time=$1, order_status='Preparing your meal' WHERE id=$2 RETURNING*`;
-  const queryParam = [orderTime, orderId];
+  const queryStr = `UPDATE orders SET order_time=current_timestamp, order_status='Preparing your meal' WHERE id=$1 RETURNING*`;
+  const queryParam = [orderId];
 
   return db
     .query(queryStr, queryParam)
@@ -173,3 +174,41 @@ const orderNow = function(db, orderTime, orderId) {
       });
 }
 exports.orderNow = orderNow;
+
+const findUserInfo = function(db, userId) {
+
+  const queryStr = `SELECT * FROM users WHERE id=$1`;
+  const queryParam = [userId];
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return data.rows[0];
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.findUserInfo = findUserInfo;
+
+
+const pickupInfo = function(db, cookingTime, orderId) {
+
+  const queryStr = `UPDATE orders SET pick_up_time=order_time + $1 * INTERVAL '1 min', order_status='Preparing your meal' WHERE id=$2 RETURNING*`;
+  const queryParam = [cookingTime, orderId];
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return data.rows[0];
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.pickupInfo = pickupInfo;
+
+
+// UPDATE orders SET order_time='2022-01-09T08:00:00.000Z', pick_up_time=order_time + 30 * INTERVAL '1 min', order_status='Preparing your meal' WHERE id=10 RETURNING*
+// UPDATE orders SET order_time=current_timestamp, pick_up_time=order_time + 30 * INTERVAL '1 min', order_status='Preparing your meal' WHERE id=10 RETURNING*
+// UPDATE orders SET order_time='2022-01-12T19:20:42.000Z', pick_up_time=order_time + INTERVAL '30 min', order_status='Preparing your meal' WHERE id=10 RETURNING*
