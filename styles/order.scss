@@ -71,6 +71,10 @@
 .cartCard {
   position: fixed;
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
+  font-size: x-small;
+  width: 40vw!important;
+
+
 }
 
 .w-50 {
@@ -101,10 +105,13 @@ margin-right: 3rem!important;
 
 .cutomizations_confirm {
   background-color: chartreuse;
+
   border-radius: 15px;
   padding: 1em;
   margin-top: 0 !important;
   font-size: small;
+  width: fit-content;
+  // visibility: collapse;
 }
 
 .category_nav {
