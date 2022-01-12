@@ -1,7 +1,7 @@
 const order = require('./order');
 
 const getCartDetails = function(db, userID) {
-  const cartQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id
+  const cartQuery = `SELECT orders.id as order_id, order_time as date, pick_up_time, order_status, menu_items.item_name as item, price, customizations.spiciness, customizations.item_size, customizations.hot, users.id as user_id, customizations.id as custom_id
   FROM customizations
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
@@ -108,7 +108,7 @@ const addCart = function(db, userID, orderId) {
       })
       .catch(err => {
         console.log(err.message);
-  });
+      });
 }
 exports.addCart = addCart;
 
@@ -133,6 +133,22 @@ const isCart = function(db, userID) {
       })
       .catch(err => {
         console.log(err.message);
-  });
+      });
 }
 exports.isCart = isCart;
+
+
+const deleteItemFromCart = function(db, customId) {
+  const queryStr = `DELETE FROM customizations WHERE id=$1 RETURNING*`;
+  const queryParam = [customId];
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return data.rows;
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.deleteItemFromCart = deleteItemFromCart;

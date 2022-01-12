@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { getCartDetails, getItemsByCategory, addCart, isCart } = require('./order_database');
+const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart } = require('./order_database');
 
 module.exports = (db) => {
 
@@ -104,22 +104,19 @@ module.exports = (db) => {
       });
   });
 
-
-
-  // add_cart post testing
-  router.get("/test", (req, res) => {
+  router.post("/delete_cart", (req, res) => {
     const userId = req.session.user_id
-    let orderId;
+    // need to get from front-end
+    let customId = 16;
     const result = {};
 
     isCart(db, userId)
       .then(data => {
         console.log(`current cart: `, data);
-        data.cart ? orderId = data.cart[0].orders_id : orderId = null;
-        return addCart(db, userId, orderId);
+        return deleteItemFromCart(db, customId);
       })
       .then(data => {
-        console.log(`added to the cart: `, data[0]);
+        console.log(`deleted from the cart: `, data[0]);
         return getCartDetails(db, userId)
       })
       .then(data => {
@@ -135,6 +132,66 @@ module.exports = (db) => {
       });
   });
 
+
+
+
+  // // add_cart post testing
+  // router.get("/test", (req, res) => {
+  //   const userId = req.session.user_id
+  //   let orderId;
+  //   const result = {};
+
+  //   isCart(db, userId)
+  //     .then(data => {
+  //       console.log(`current cart: `, data);
+  //       data.cart ? orderId = data.cart[0].orders_id : orderId = null;
+  //       return addCart(db, userId, orderId);
+  //     })
+  //     .then(data => {
+  //       console.log(`added to the cart: `, data[0]);
+  //       return getCartDetails(db, userId)
+  //     })
+  //     .then(data => {
+  //       result.cart = data.cart;
+  //       result.cartTotal = data.cartTotal[0];
+  //       console.log(`all info in the cart: `, result);
+  //       res.json(result);
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
+
+
+  // // delete_cart post testing
+  // router.get("/testd", (req, res) => {
+  //   const userId = req.session.user_id
+  //   let customId = 16;
+  //   const result = {};
+
+  //   isCart(db, userId)
+  //     .then(data => {
+  //       console.log(`current cart: `, data);
+  //       return deleteItemFromCart(db, customId);
+  //     })
+  //     .then(data => {
+  //       console.log(`deleted from the cart: `, data[0]);
+  //       return getCartDetails(db, userId)
+  //     })
+  //     .then(data => {
+  //       result.cart = data.cart;
+  //       result.cartTotal = data.cartTotal[0];
+  //       console.log(`all info in the cart: `, result);
+  //       res.json(result);
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
   return router;
 };
