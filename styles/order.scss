@@ -31,10 +31,40 @@
 
 
 // MENU items after orginal visit
-.menu_category_container {
+// .menu_category_container {
+// }
+
+.photoAndTitle {
+  background-color: yellow;
+  box-sizing: content-box;
+  box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
+  border-radius: 15px;
+  padding: 1em;
+  height: 40vh;
+  font-size: small;
 }
 
+#dish_pic {
+  border-radius: 5px;
+}
 
+.itemTitleAndPrice {
+  margin: 0 !important;
+}
+
+.itemTitle {
+  font-size: x-large;
+  margin-bottom: 0 !important;
+
+}
+
+.itemPrice {
+  font-style: italic;
+}
+
+.itemDescr {
+
+}
 
 // CART
 
@@ -52,6 +82,8 @@ margin-left: 3rem!important;
 margin-right: 3rem!important;
 }
 
+
+
 .menu_and_cart_container {
   display: flex;
   padding-top: 120px;
@@ -63,8 +95,16 @@ margin-right: 3rem!important;
 
 // Customizations
 
-.customizations {
+// .customizations {
 
+// }
+
+.cutomizations_confirm {
+  background-color: chartreuse;
+  border-radius: 15px;
+  padding: 1em;
+  margin-top: 0 !important;
+  font-size: small;
 }
 
 .category_nav {
