@@ -3,6 +3,16 @@
 
   $(() => {
 
+    const loadCart = function() {
+      // $(".all-tweets").empty();
+      $.getJSON('/order/cart/6')
+      .then((data) => {
+        showCart(data);
+      })
+    }
+    //first data load
+    loadCart();
+
     $('.appetizer').on('click', () => {
       categoryMenu('appetizer');
     });
@@ -18,6 +28,34 @@
 
 
   });
+
+
+////////////////////////
+  const showCart = (data) => {
+    const $test = $('#test');
+    $test.empty();
+    // $test.append(`<h1>${data[0].description}</h1>`);
+    const appendContent = renderCart(data);
+    $test.append(appendContent);
+  }
+
+  const renderCart = (data) => {
+    console.log(data);
+    let appendContent = '';
+    for (let i = 0; i < data.length; i++) {
+      appendContent +=
+        `
+          <div class="items">
+            <img id="dish_pic" src="${data[i].order_id}">
+            <div class="info">
+              <text id="dish_name"></text>
+              <text id="dish_description"></text>
+              <text id="dish_price"></text>
+          </div>`;
+    }
+    return appendContent;
+  }
+/////////////////////////
 
     // compose Button at the top right
     $(".photoAndTitle").click(function() {
