@@ -3,7 +3,7 @@ const { query } = require('express');
 const getAllOrders = function(db) {
 
   const queryStr = `
-  SELECT DISTINCT orders.id as order_id, users.id as user_id, users.first_name, users.last_name, users.phone, orders.order_time, orders.pick_up_time, orders.order_status, total_table.total
+  SELECT orders.id as order_id, users.id as user_id, users.first_name, users.last_name, users.phone, orders.order_time, orders.pick_up_time, orders.order_status, customizations.spiciness, customizations.hot, customizations.item_size, menu_items.item_name, total_table.total
   FROM orders
   JOIN users ON user_id = users.id
   JOIN customizations ON order_id = orders.id
@@ -13,6 +13,7 @@ const getAllOrders = function(db) {
   RIGHT JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
   GROUP BY orders.id) as total_table ON total_table.order_id = orders.id
+  JOIN menu_items ON customizations.menu_item_id = menu_items.id
   ORDER BY orders.id DESC`;
 
   return db
