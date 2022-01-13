@@ -1,3 +1,4 @@
+@import "global_val";
 .menu {
   display: flex;
   justify-content: space-evenly;
@@ -11,8 +12,8 @@
   justify-content: space-evenly;
   align-items: center;
 
-  height: 6em;
-  width: 8em;
+  height: 12em;
+  width: 15em;
 
   border: 2px solid rgba(255, 213, 0, 0.784);
   border-radius: 15px;
@@ -27,21 +28,24 @@
 .info {
   display: flex;
   flex-direction: column;
+  text-align: left;
+  margin-top: 10px;
+  font-family: $primary-font;
+  margin-bottom: 20px;
 }
 
 #dish_pic {
   width: 70%;
-
-
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 #dish_name {
-  font-size: medium;
+  font-size: 1.5rem;
 }
 
 #dish_description {
-  font-size: x-small;
+  font-size: 1rem;
   font-style: italic;
 }
 
