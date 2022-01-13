@@ -1,22 +1,27 @@
 
 .mainContainer {
   margin: 0 !important;
+  background-color: #f4f1ec;
 }
 
 .currentOrderContainer {
   margin-top: 0 !important;
-  padding-top: 3em;
+  padding-top: 110px;
   height: fit-content;
+
 
 }
 
 .currentOrderTitle {
   box-sizing: content-box;
   font-size: x-large;
+  color: #f2ba4d;
 }
 
 .currentOrder {
-  background-color: #F2BA4D;
+  background-color: #f4f1ec;
+  border: 2px solid #f2ba4d;
+  border-radius: 15px;
   font-size: xx-small;
   height: fit-content;
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
@@ -24,17 +29,32 @@
 }
 
 .pastOrder {
+  background-color: #f4f1ec;
+  border-radius: 15px;
+  border: 2px solid #f2ba4d;
+}
+
+.card-header {
   background-color: #F2BA4D;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
 }
 
 .card-body {
   object-fit: contain;
   height: fit-content;
-  background-color: rgb(244, 244, 244);
+  background-color: #f4f1ec;
+  // border: 2px solid #f2ba4d;
+  border-radius: 15px;
+
 
  }
 
 
 .pastOrderCardContainer {
   font-size: xx-small;
+}
+
+#dancing_ramen {
+  height: 15em;
 }
