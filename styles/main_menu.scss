@@ -12,12 +12,12 @@
   justify-content: space-evenly;
   align-items: center;
 
-  height: 12em;
-  width: 15em;
+  height: 16em;
+  width: 15.5em;
 
-  border: 2px solid rgba(255, 213, 0, 0.784);
+  border: 2px solid #f2ba4d;
   border-radius: 15px;
-  padding: 1em;
+  padding: 2em;
   margin: 1em;
 }
 
@@ -31,17 +31,19 @@
   text-align: left;
   margin-top: 10px;
   font-family: $primary-font;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 #dish_pic {
-  width: 70%;
+  width: 300px;
+  height: 200px;
   border-radius: 10px;
   margin-top: 10px;
 }
 
 #dish_name {
   font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 #dish_description {
@@ -50,5 +52,23 @@
 }
 
 #dish_price {
-  font-size: medium;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.menu_button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin: 3px;
+    cursor: pointer;
+  }
+  div {
+    margin-top: 5px;
+  }
 }
