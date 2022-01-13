@@ -197,7 +197,7 @@
     for (let i = 0; i < data.length; i++) {
       console.log(data[i]);
       appendContent +=
-        `
+      `
         <div class="menuScrollCard card p-5">
         <div class="photoAndTitle d-flex flex-row">
           <div class="image card w-50">

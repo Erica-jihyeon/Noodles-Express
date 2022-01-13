@@ -31,8 +31,6 @@
 
 
 // MENU items after orginal visit
-// .menu_category_container {
-// }
 
 .photoAndTitle {
   background-color: yellow;
@@ -40,8 +38,13 @@
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
   border-radius: 15px;
   padding: 1em;
-  height: 40vh;
+  height: fit-content;
   font-size: small;
+
+  display: flex !important;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 #dish_pic {
@@ -55,17 +58,11 @@
 .itemTitle {
   font-size: x-large;
   margin-bottom: 0 !important;
-
 }
 
 .itemPrice {
   font-style: italic;
 }
-
-.itemDescr {
-
-}
-
 // CART
 
 .cartCard {
@@ -73,8 +70,6 @@
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
   font-size: x-small;
   width: 40vw!important;
-
-
 }
 
 .w-50 {
@@ -91,10 +86,6 @@ margin-right: 3rem!important;
 .menu_and_cart_container {
   display: flex;
   padding-top: 120px;
-  // position: fixed;
-
-  // box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
-
 }
 
 // Customizations
@@ -114,6 +105,12 @@ margin-right: 3rem!important;
   // visibility: collapse;
 }
 
+.btn-group-a {
+  display: flex;
+  flex-direction: column;
+
+}
+
 .category_nav {
   position: fixed;
   z-index: 99;
@@ -124,4 +121,8 @@ margin-right: 3rem!important;
 .page_body_container {
   display: flex;
   justify-content: flex-start;
+}
+
+.confirm_button {
+  height: fit-content;
 }
