@@ -159,46 +159,47 @@
     console.log(data)
     for (let i = 0; i < data.length; i++) {
       appendContent +=
-        `
+      `
+      <div class="menuScrollCard card p-5">
+      <div class="photoAndTitle d-flex flex-row">
+        <div class="image card w-50">
+          <img id="dish_pic" src="${data[i].thumbnail_url}">
+        </div>
+        <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
+          <p class="itemTitle text-end">${data[i].item_name}</p>
+          <p class="itemPrice text-end">$${data[i].price.toFixed(2)}</p>
+          <p class="itemDescr text-end">${data[i].description}</p>
 
-        <div class="menuScrollCard card p-5">
-        <div class="photoAndTitle d-flex flex-row">
-          <div class="image card w-50">
-            <img id="dish_pic" src="${data[i].thumbnail_url}">
-          </div>
-          <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
-            <p class="itemTitle text-end">${data[i].item_name}</p>
-            <p class="itemPrice text-end">$${data[i].price.toFixed(2)}</p>
-            <p class="itemDescr text-end">${data[i].description}</p>
-          </div>
+
+
+       </div>
 
 
         <div class="accordion" id="accordionExample">
-
         <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Customizations
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-            <table class="table">
-            <tbody>
-              <tr>
-                <td></td>
-                <td>Cold/Hot</td>
-                <td>
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="${data[i].item_name}1">Hot</label>
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Customizations
+                </button>
+                </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                  <table class="table">
+                  <tbody>
+                  <tr>
+                    <td></td>
+                    <td>Cold/Hot</td>
+                    <td>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="${data[i].item_name}1">Hot</label>
 
-                <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="${data[i].item_name}2">Cold</label>
-                </div>
-                </td>
-              </tr>
-              <tr>
+                    <input type="radio" class="btn-check" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="${data[i].item_name}2">Cold</label>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
                 <td></td>
                 <td class="">Size</td>
                 <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -231,23 +232,34 @@
 
                 <input type="radio" class="btn-check" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
                 <label class="btn btn-outline-primary" for="${data[i].item_name}10">🌶️🌶️🌶️🌶️🌶️</label>
-              </td>
-              </tr>
-            </tbody>
-          </table>
+               </td>
+               </tr>
+               </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
 
-        <div class="confirm_button d-flex justify-content-end">
-          <button class="bi bi-cart-plus h3 m-3"></button>
-        </div>
-        </div>
-        </div>
+      <div class="confirm_button d-flex justify-content-end">
+      <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
+      </div>
 
 
-        `;
+
+
+      </div>
+
+
+
+
+
+
+      
+      </div>
+
+
+      `;
     }
     //console.log(appendContent)
     return appendContent;
