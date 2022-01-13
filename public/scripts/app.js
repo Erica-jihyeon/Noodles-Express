@@ -241,21 +241,21 @@
         </div>
       </div>
 
+
+
+
+
+
+      </div>
+
+
+
       <div class="confirm_button d-flex justify-content-end">
       <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
       </div>
 
 
 
-
-      </div>
-
-
-
-
-
-
-      
       </div>
 
 
