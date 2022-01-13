@@ -208,67 +208,101 @@
             <p class="itemPrice text-end">$${data[i].price.toFixed(2)}</p>
             <p class="itemDescr text-end">${data[i].description}</p>
           </div>
-        </div>
 
-        <div class="cutomizations_confirm d-flex flex-column mt-5 mb-5">
-        <table class="table">
-          <h5>Customizations</h5>
-          <tbody>
-            <tr>
-              <td></td>
-              <td>Cold/Hot</td>
-              <td>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" data=${true}>
-              <label class="btn btn-outline-primary" data=${true} for="${data[i].item_name}1">Hot</label>
 
-              <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off" data=${false}>
-              <label class="btn btn-outline-primary" data=${false} for="${data[i].item_name}2">Cold</label>
+
+
+
+          <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Customizations
+                  </button>
+                  </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                <div class="cutomizations_confirm d-flex flex-column mt-5 mb-5">
+                <table class="table">
+                  <h5>Customizations</h5>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td>Cold/Hot</td>
+                      <td>
+                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" data=${true}>
+                      <label class="btn btn-outline-primary" data=${true} for="${data[i].item_name}1">Hot</label>
+
+                      <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}2" autocomplete="off" data=${false}>
+                      <label class="btn btn-outline-primary" data=${false} for="${data[i].item_name}2">Cold</label>
+                      </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td class="">Size</td>
+                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="${data[i].item_name}3">S</label>
+
+                        <input type="radio" class="btn-check size_button" data="med" name="${data[i].item_name}-size" id="${data[i].item_name}4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="${data[i].item_name}4">M</label>
+
+                        <input type="radio" class="btn-check size_button" data="large" name="${data[i].item_name}-size" id="${data[i].item_name}5" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="${data[i].item_name}5">L</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
+                      <td>Spicyness</td>
+                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check spicy_button" data="1" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="${data[i].item_name}6">🌶️</label>
+
+                      <input type="radio" class="btn-check spicy_button" data="2" name="${data[i].item_name}-spicyness" id="${data[i].item_name}7" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="${data[i].item_name}7">🌶️🌶️</label>
+
+                      <input type="radio" class="btn-check spicy_button" data="3" name="${data[i].item_name}-spicyness" id="${data[i].item_name}8" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="${data[i].item_name}8">🌶️🌶️🌶️</label>
+
+                      <input type="radio" class="btn-check spicy_button" data="4" name="${data[i].item_name}-spicyness" id="${data[i].item_name}9" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="${data[i].item_name}9">🌶️🌶️🌶️🌶️</label>
+
+                      <input type="radio" class="btn-check spicy_button" data="5" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="${data[i].item_name}10">🌶️🌶️🌶️🌶️🌶️</label>
+                    </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+              </div> <!-- customizations_confirm end -->
               </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="">Size</td>
-              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="${data[i].item_name}3">S</label>
-
-                <input type="radio" class="btn-check size_button" data="med" name="${data[i].item_name}-size" id="${data[i].item_name}4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="${data[i].item_name}4">M</label>
-
-                <input type="radio" class="btn-check size_button" data="large" name="${data[i].item_name}-size" id="${data[i].item_name}5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="${data[i].item_name}5">L</label>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
-              <td>Spicyness</td>
-              <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" class="btn-check spicy_button" data="1" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}6">🌶️</label>
-
-              <input type="radio" class="btn-check spicy_button" data="2" name="${data[i].item_name}-spicyness" id="${data[i].item_name}7" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}7">🌶️🌶️</label>
-
-              <input type="radio" class="btn-check spicy_button" data="3" name="${data[i].item_name}-spicyness" id="${data[i].item_name}8" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}8">🌶️🌶️🌶️</label>
-
-              <input type="radio" class="btn-check spicy_button" data="4" name="${data[i].item_name}-spicyness" id="${data[i].item_name}9" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}9">🌶️🌶️🌶️🌶️</label>
-
-              <input type="radio" class="btn-check spicy_button" data="5" name="${data[i].item_name}-spicyness" id="${data[i].item_name}10" autocomplete="off">
-              <label class="btn btn-outline-primary" for="${data[i].item_name}10">🌶️🌶️🌶️🌶️🌶️</label>
-            </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="confirm_button d-flex justify-content-end">
-          <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
+            </div>
+          </div>
         </div>
 
-      </div> <!-- customizations_confirm end -->
+
+        <div class="confirm_button d-flex justify-content-end">
+        <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
+      </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
         </div>
 
 
