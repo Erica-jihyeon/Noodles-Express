@@ -119,6 +119,16 @@
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
   font-size: x-small;
   width: 40vw !important;
+  border-radius: 10px;
+
+  table {
+    color: #545149;
+  }
+
+  .deleteBtn {
+    font-size: 1rem;
+    padding-left: 20px;
+  }
 }
 
 .w-50 {
