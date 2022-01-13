@@ -8,15 +8,18 @@
 
   width: -webkit-fill-available;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #f4f1ec;
+
+  padding-left: 82px;
 }
 
 .nav-link {
-  font-size: medium;
-  padding-left: 2em;
-  color: #F2BA4D;
+  font-size: 1.6rem;
+  color: #e79128;
   background-color: #f4f1ec;
+  margin: 15px;
+  padding: 0.5rem;
 }
 
 .page_body_container {
@@ -31,13 +34,13 @@
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
 
 .card_body {
   padding: 2em;
-  height: 50vh;
+  height: 77vh;
   overflow-y: scroll;
 
   display: flex;
@@ -45,18 +48,9 @@
   align-items: flex-start;
 }
 
-.cart_title {
-  // position: fixed;
-  display: flex;
-  justify-content: flex-start;
-  color: #F2BA4D;
-
-}
-
 .btn-primary {
   background-color: #f2ba4d;
   border-color: #f2ba4d;
-
 }
 
 .deleteBtn {
@@ -65,7 +59,6 @@
   border: transparent;
   font-size: small;
   padding: 0;
-
 }
 // MENU items after orginal visit
 
@@ -89,54 +82,84 @@
 
 #dish_pic {
   border-radius: 10px;
-  background-color: #F2BA4D;
+  background-color: #f2ba4d;
 }
 
 .itemTitleAndPrice {
   margin: 0 !important;
+  color: #545149;
+
+  .itemTitle {
+    font-size: 2rem;
+    margin-bottom: 0 !important;
+  }
+
+  .itemPrice {
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+
+  .itemDescr {
+    font-size: 1.2rem;
+  }
 }
 
-.itemTitle {
-  font-size: x-large;
-  margin-bottom: 0 !important;
-}
-
-.itemPrice {
-  font-style: italic;
-}
 // CART
+
+.cart_title {
+  // position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  color: #f2ba4d;
+  font-size: 2rem;
+}
 
 .cartCard {
   position: fixed;
   box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
   font-size: x-small;
-  width: 40vw!important;
+  width: 40vw !important;
+  border-radius: 10px;
+
+  table {
+    color: #545149;
+  }
+
+  .deleteBtn {
+    font-size: 1rem;
+    padding-left: 20px;
+  }
 }
 
 .w-50 {
   background-color: #f4f1ec;
-  width: 50vw!important;
+  width: 50vw !important;
   height: fit-content;
   border-radius: 10px;
 }
 .ms-5 {
-margin-left: 3rem!important;
-margin-right: 3rem!important;
+  margin-left: 3rem !important;
+  margin-right: 3rem !important;
 }
-
-
 
 .menu_and_cart_container {
   display: flex;
-  padding-top: 126px;
+  padding-top: 173px;
   background-color: #f4f1ec;
-
 }
 
 .menuScrollCard {
   border: none;
   padding-top: 0em !important;
   background-color: #f4f1ec;
+}
+
+.table {
+  font-size: 1.2rem;
+}
+
+.order_now_button {
+  font-size: 1.5rem;
 }
 
 // Customizations
@@ -161,7 +184,6 @@ margin-right: 3rem!important;
 .btn-group {
   display: flex;
   flex-direction: column;
-
 }
 
 .category_nav {
@@ -179,21 +201,19 @@ margin-right: 3rem!important;
 .confirm_button {
   height: fit-content;
   margin: 0;
-
 }
 
 .bi {
   margin: 0 !important;
   background-color: transparent;
   border: transparent;
-  color: #f2ba4d;
+  color: #e79128;
 }
 
 .accordion {
   display: flex;
   align-items: flex-end;
   background-color: transparent;
-
 }
 .accordion-item {
   border: transparent;
@@ -203,12 +223,9 @@ margin-right: 3rem!important;
   padding: 3px;
   background-color: #f4f1ec;
 
-
   border: 2px solid #f2ba4d;
-  border-radius: 15px;
+  border-radius: 20px;
 
-  color: #F2BA4D;
-
+  color: #e79128;
+  font-size: 1.5rem;
 }
-
-
