@@ -43,3 +43,19 @@ const updateOrderTable = function(db, cookingTime, orderId) {
       });
 }
 exports.updateOrderTable = updateOrderTable;
+
+const completeOrder = function(db, orderId) {
+
+  const queryStr = `UPDATE orders SET order_status='complete' WHERE id=$1`;
+  const queryParam = [orderId];
+
+  return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return;
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.completeOrder = completeOrder;

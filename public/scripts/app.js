@@ -1,6 +1,11 @@
+  // const { send_sms } = require('./send_sms');
+
+  // let ownerPhoneNum = '7786813760';
+  // const message = 'New order! Please check your dashboard!';
+  // //need to send a message
+  // send_sms(message ,ownerPhoneNum);
 // using IIFE
 (function($) {
-
   $(() => {
 
     const loadCart = function() {
@@ -26,21 +31,17 @@
       categoryMenu('dessert');
     });
 
-
-    let pickUpTime;
-    let orderStatus;
     $('.order_now_button').on('click', () => {
       $.post('/order/order_now')
         .then((data) => {
-          // console.log(data);
-          pickUpTime = data.orderData.pick_up_time;
-          orderStatus = data.orderData.order_status;
-          console.log(pickUpTime, orderStatus);
-          //need to send a message
-
+          // let ownerPhoneNum = '7786813760';
+          // const message = 'New order! Please check your dashboard!';
+          // //need to send a message
+          // send_sms(message ,ownerPhoneNum);
           return $.getJSON('/order/cart/6')
         })
         .then((data) => {
+
           showCart(data);
         })
         .catch((error) => {
@@ -48,9 +49,12 @@
         });
     })
 
+    $('.spicy_button').on('click', (event) => {
+      customData.spiciness = $(event.target).attr('data');
+      console.log(customData);
+    });
 
   });
-
 
   /* load cart */
   const showCart = (data) => {
@@ -123,7 +127,7 @@
   <tr>
     <td></td>
     <td class="text-end">Tax@5%</td>
-    <td>$${Number(data.cartTotal.sub_total) * 0.05.toFixed(2)}</td>
+    <td>$${(Number(data.cartTotal.sub_total) * 0.05).toFixed(2)}</td>
   </tr>
   <tr>
     <td></td>

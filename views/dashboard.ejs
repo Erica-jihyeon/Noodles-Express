@@ -70,19 +70,21 @@
                 </td>
                 <td class="col-1">
                     <% if(data[order][0]['order_status'] === null){ %>
-                      <form class="row-auto">
-                        <div class="col-auto">
-                          <label for="inputPassword2" class="visually-hidden">Minutes</label>
-                          <input type="minutes" class="form-control" id="inputPassword2" placeholder="Minutes">
-                        </div>
-                        <div class="col-auto">
-                          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                      <form class="form-inline" action="/dashboard/update" method="POST">
+                        <div class="form-group mb-2">
+                          <input class="form-control" type="text" name="mintuesTxtBox" placeholder="mintues">
+                          <input type="hidden" class="form-control" type="text" name="orderID" value="<%= data[order][0]['order_id'];%>">
+                          <input type="hidden" class="form-control" type="text" name="phone" value="<%= data[order][0]['phone'] %>">
+                          <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                       </form>
                       <% } else if(data[order][0]['order_status'] === 'Preparing your meal'){ %>
-                        <button type="readyBtn" class="btn btn-primary">Ready</button>
-                        <% } else if(data[order][0]['order_status'] === 'Ready for pick up'){ %>
-                          <button type="readyBtn" class="btn btn-primary">Complete</button>
+                        <form class="form-inline" action="/dashboard/complete" method="POST">
+                          <div class="form-group mb-2">
+                            <input type="hidden" class="form-control" type="text" name="orderID" value="<%= data[order][0]['order_id'];%>">
+                            <button type="submit" class="btn btn-primary">Complete</button>
+                          </div>
+                        </form>
                 <% } %>
               </td>
               </tr>

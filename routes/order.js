@@ -1,7 +1,13 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow, findUserInfo } = require('./order_database');
+const { send_sms } = require('./send_sms');
+
+// let ownerPhoneNum = '7786813760';
+// const message = 'New order! Please check your dashboard!';
+// //need to send a message
+// send_sms(message ,ownerPhoneNum);
 
 module.exports = (db) => {
 
@@ -86,7 +92,7 @@ module.exports = (db) => {
       .then(data => {
         console.log(`current cart: `, data);
         data.cart ? orderId = data.cart[0].orders_id : orderId = null;
-        return addCart(db, userId, orderId, {...req.body});
+        return addCart(db, userId, orderId, { ...req.body });
       })
       .then(data => {
         console.log(`added to the cart: `, data[0]);
@@ -158,6 +164,12 @@ module.exports = (db) => {
         result.users = data;
         console.log(`order status`, result);
         res.json(result);
+      })
+      .then(() => {
+        let ownerPhoneNum = '7786813760';
+        const message = 'New order! Please check your dashboard!';
+        //need to send a message
+        send_sms(message, ownerPhoneNum);
       })
       .catch(err => {
         res
