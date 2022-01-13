@@ -1,6 +1,11 @@
+  // const { send_sms } = require('./send_sms');
+
+  // let ownerPhoneNum = '7786813760';
+  // const message = 'New order! Please check your dashboard!';
+  // //need to send a message
+  // send_sms(message ,ownerPhoneNum);
 // using IIFE
 (function($) {
-
   $(() => {
 
     const loadCart = function() {
@@ -26,21 +31,17 @@
       categoryMenu('dessert');
     });
 
-
-    let pickUpTime;
-    let orderStatus;
     $('.order_now_button').on('click', () => {
       $.post('/order/order_now')
         .then((data) => {
-          // console.log(data);
-          pickUpTime = data.orderData.pick_up_time;
-          orderStatus = data.orderData.order_status;
-          console.log(pickUpTime, orderStatus);
-          //need to send a message
-
+          // let ownerPhoneNum = '7786813760';
+          // const message = 'New order! Please check your dashboard!';
+          // //need to send a message
+          // send_sms(message ,ownerPhoneNum);
           return $.getJSON('/order/cart/6')
         })
         .then((data) => {
+
           showCart(data);
         })
         .catch((error) => {
@@ -48,9 +49,12 @@
         });
     })
 
+    $('.spicy_button').on('click', (event) => {
+      customData.spiciness = $(event.target).attr('data');
+      console.log(customData);
+    });
 
   });
-
 
   /* load cart */
   const showCart = (data) => {
@@ -123,7 +127,7 @@
   <tr>
     <td></td>
     <td class="text-end">Tax@5%</td>
-    <td>$${Number(data.cartTotal.sub_total) * 0.05.toFixed(2)}</td>
+    <td>$${(Number(data.cartTotal.sub_total) * 0.05).toFixed(2)}</td>
   </tr>
   <tr>
     <td></td>
@@ -216,18 +220,18 @@
           <div class="accordion" id="accordionExample">
           <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree${i}" aria-expanded="false" aria-controls="collapseThree${i}">
                     Customizations
                   </button>
                   </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div id="collapseThree${i}" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                 <div class="cutomizations_confirm d-flex flex-column mt-5 mb-5">
                 <table class="table">
                   <h5>Customizations</h5>
                   <tbody>
                     <tr>
-                      <td></td>
+
                       <td>Cold/Hot</td>
                       <td>
                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -240,7 +244,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td></td>
+
                       <td class="">Size</td>
                       <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
@@ -254,7 +258,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td></td>
+                      
                       <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
                       <td>Spicyness</td>
                       <td class="btn-group" role="group" aria-label="Basic radio toggle button group">

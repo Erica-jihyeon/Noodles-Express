@@ -2,11 +2,19 @@
 
 .nav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding-top: 40px;
-  margin-bottom: 0;
-  list-style: none;
+  position: fixed;
+  z-index: 99;
+  background-color: #fff;
+
+  width: -webkit-fill-available;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.nav-link {
+  font-size: medium;
+  padding-left: 2em;
+  color: #F2BA4D;
 }
 
 
@@ -22,21 +30,40 @@
   border-radius: 0.25rem;
 }
 
+.card_body {
+  padding: 2em;
+  height: 50vh;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
 .cart_title {
+  // position: fixed;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  color: #F2BA4D;
+
 }
 
 
+.deleteBtn {
+  color: red;
+  background-color: transparent;
+  border: transparent;
+  font-size: small;
+  padding: 0;
 
+}
 // MENU items after orginal visit
 
 .photoAndTitle {
-  background-color: yellow;
+  background-color: #F2BA4D;
   box-sizing: content-box;
-  box-shadow: 5px 5px 5px rgba(187, 175, 89, 0.5);
-  border-radius: 15px;
+  box-shadow: 3px 3px 3px rgba(187, 175, 89, 0.5);
+  border-radius: 5px;
   padding: 1em;
   height: fit-content;
   font-size: small;
@@ -49,6 +76,7 @@
 
 #dish_pic {
   border-radius: 5px;
+  background-color: #F2BA4D;
 }
 
 .itemTitleAndPrice {
@@ -88,6 +116,11 @@ margin-right: 3rem!important;
   padding-top: 120px;
 }
 
+.menuScrollCard {
+  border: none;
+  padding-top: 0em !important;
+}
+
 // Customizations
 
 // .customizations {
@@ -95,17 +128,19 @@ margin-right: 3rem!important;
 // }
 
 .cutomizations_confirm {
-  background-color: chartreuse;
-
-  border-radius: 15px;
+  background-color: floralwhite;
   padding: 1em;
-  margin-top: 0 !important;
+  margin: 0 !important;
   font-size: small;
   width: fit-content;
   // visibility: collapse;
 }
 
-.btn-group-a {
+.accordion-body {
+  padding: 0;
+}
+
+.btn-group {
   display: flex;
   flex-direction: column;
 
@@ -125,4 +160,32 @@ margin-right: 3rem!important;
 
 .confirm_button {
   height: fit-content;
+  margin: 0;
+
 }
+
+.bi {
+  margin: 0 !important;
+  background-color: transparent;
+  border: transparent;
+  color: #fff;
+}
+
+.accordion {
+  display: flex;
+  align-items: flex-end;
+  background-color: transparent;
+
+}
+.accordion-item {
+  border: transparent;
+}
+
+.accordion-button {
+  padding: 3px;
+  background-color: #F2BA4D;
+
+  color: #fff;
+}
+
+
