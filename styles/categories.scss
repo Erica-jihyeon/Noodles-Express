@@ -3,7 +3,7 @@
   display: flex;
   font-family: $primary-font;
   text-align: center;
-  margin-bottom: 40px;
+  margin: 60px 40px;
 }
 
 #category {
@@ -25,4 +25,8 @@
     background-color: #f9d39b7d;
     border-radius: 10px;
   }
+}
+
+.logo {
+  margin-top: 80px;
 }
