@@ -1,16 +1,28 @@
+@import "global_val";
 .categories {
   display: flex;
+  font-family: $primary-font;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 #category {
   width: 60vw;
   height: 50vw;
-
 }
 
 #cat_pic {
-  border-radius: 5px;
+  border-radius: 10px;
   height: 5em;
   width: 7.5em;
+}
 
+.category {
+  margin: 13px;
+
+  p {
+    margin: 10px;
+    background-color: #f9d39b7d;
+    border-radius: 10px;
+  }
 }
