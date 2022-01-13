@@ -69,7 +69,7 @@
     $test.append(appendContent).off('click').on('click', '.deleteBtn', (event) => {
       event.preventDefault();
 
-      const data = $('.deleteBtn').attr('data-custom-id');
+      const data = event.target.getAttribute('data-custom-id');
 
       $.post("/order/delete_cart", { data })
         .then((data) => {
@@ -258,7 +258,7 @@
                       </td>
                     </tr>
                     <tr>
-                      
+
                       <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
                       <td>Spicyness</td>
                       <td class="btn-group" role="group" aria-label="Basic radio toggle button group">

@@ -22,6 +22,12 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+  <!-- external css - font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -33,75 +39,124 @@
     <a href="/mypage"><span class="contact">My Order</span></a>
   </nav>
 
-  <!-- HEADER -->
-  <header class="main">
-    <div class="welcome">
-      <h2 class="statement">Real Food, Made Fresh!</h2>
-      <a href="/order"><button type="button" class="btn btn-primary w-100">Order Now</button></a>
-    </div>
-    <div class="logo">
-      <img class="photo" src="/images/Noodles_Express_Logo.png">
-    </div>
-  </header>
+    <!-- HEADER -->
+    <header class="main">
+      <div class="welcome">
+        <h2 class="statement">Real Food, Made Fresh!</h2>
+        <a href="/order"><button type="button" class="btn btn-primary w-100">Order Now</button></a>
+      </div>
+      <div class="logo">
+        <img class="photo" src="/images/img_logo_main.png">
+      </div>
+    </header>
 
-  <main class="container">
-    <section class="categories">
-      <div class="category"><img id="cat_pic" src="<%= menu1.thumbnail_url %>"></div>
-      <div class="category"><img id="cat_pic" src="<%= menu2.thumbnail_url %>"></div>
-      <div class="category"><img id="cat_pic" src="<%= menu3.thumbnail_url %>"></div>
-      <div class="category"><img id="cat_pic" src="<%= menu4.thumbnail_url %>"></div>
-    </section>
-    <section class="menu">
-     <div class="items">
-       <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Pork Ramen</text>
-        <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
-        <text id="dish_price">$12</text>
-      </div>
-      </div>
-     <div class="items">
-       <img id="dish_pic" src="<%= menu2.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Veggie Ramen</text>
-        <text id="dish_description">Eggplant peperoncini, croquette, bamboo shoot and green onion</text>
-        <text id="dish_price">$12</text>
-      </div>
-      </div>
-     <div class="items">
-       <img id="dish_pic" src="<%= menu3.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Mushroom Noodles</text>
-        <text id="dish_description">Hand pulled noodles, mushrooms, onion and carrots</text>
-        <text id="dish_price">$12</text>
-      </div>
-      </div>
-     <div class="items">
-       <img id="dish_pic" src="<%= menu6.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Fried Rolls</text>
-        <text id="dish_description">Fresh fried rolls, cheese and onions</text>
-        <text id="dish_price">$8</text>
-      </div>
-      </div>
-     <div class="items">
-       <img id="dish_pic" src="<%= menu4.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Coke</text>
-        <text id="dish_description">You know what it is</text>
-        <text id="dish_price">$3</text>
-      </div>
-      </div>
-     <div class="items">
-       <img id="dish_pic" src="<%= menu5.thumbnail_url %>">
-       <div class="info">
-        <text id="dish_name">Strawberry Crepes</text>
-        <text id="dish_description">Fresh Strawberries and whipping cream</text>
-        <text id="dish_price">$5</text>
-      </div>
-      </div>
-    </section>
-  </main>
+    <main class="container">
+      <section class="categories">
+        <div class="category"><img id="cat_pic" src="<%= menu6.thumbnail_url %>"><p>appetizer</p></div>
+        <div class="category"><img id="cat_pic" src="<%= menu2.thumbnail_url %>"><p>main</p></div>
+        <div class="category"><img id="cat_pic" src="<%= menu3.thumbnail_url %>"><p>drink</p></div>
+        <div class="category"><img id="cat_pic" src="<%= menu4.thumbnail_url %>"><p>dessert</p></div>
+      </section>
+      <section class="menu">
+      <div class="items">
+        <img id="dish_pic" src="<%= menu1.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Pork Ramen</text>
+          <text id="dish_description">Chashu, Black Fungus, Egg, Green Onion</text>
+          <div class="menu_button">
+            <text id="dish_price">$12</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="items">
+        <img id="dish_pic" src="<%= menu2.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Veggie Ramen</text>
+          <text id="dish_description">Eggplant peperoncini, croquette, bamboo shoot and green onion</text>
+          <div class="menu_button">
+            <text id="dish_price">$12</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="items">
+        <img id="dish_pic" src="<%= menu3.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Mushroom Noodles</text>
+          <text id="dish_description">Hand pulled noodles, mushrooms, onion and carrots</text>
+          <div class="menu_button">
+            <text id="dish_price">$12</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="items">
+        <img id="dish_pic" src="<%= menu6.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Fried Rolls</text>
+          <text id="dish_description">Fresh fried rolls, cheese and onions</text>
+          <div class="menu_button">
+            <text id="dish_price">$8</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="items">
+        <img id="dish_pic" src="<%= menu4.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Coke</text>
+          <text id="dish_description">You know what it is! coke, coke, coke!</text>
+          <div class="menu_button">
+            <text id="dish_price">$3</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="items">
+        <img id="dish_pic" src="<%= menu5.thumbnail_url %>">
+        <div class="info">
+          <text id="dish_name">Strawberry Crepes</text>
+          <text id="dish_description">Fresh Strawberries and whipping cream</text>
+          <div class="menu_button">
+            <text id="dish_price">$5</text>
+            <div>
+              <img src="images/home_favor.png">
+              <img src="images/home_cart.png">
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+    </main>
+
+
 </body>
+<footer>
+  <div>
+    <p>CONTACT</p>
+    <p>ADDRESS</p>
+    <p>FAQ</p>
+    <p>ABOUT US</p>
+  </div>
+  <div>
+    <p>Noodles Express</p>
+  </div>
+</footer>
 
 </html>
