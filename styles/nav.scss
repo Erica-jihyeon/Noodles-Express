@@ -1,37 +1,38 @@
 .top_nav {
   position: fixed;
-  height: 40px;
+  height: 86px;
   width: 100%;
-  background-color: rgb(255, 255, 255);
-  color: #FFFFFF;
-
+  background-color: white;
+  color: #ffffff;
   padding-left: 1.5em;
   padding-right: 1.5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 100;
-
-  border: 3px solid #F2BA4D;
+  background-color: #ffffff;
   border-radius: 5px;
 
+  div {
+    display: flex;
+  }
+  a {
+    text-decoration: none;
+  }
+  .contact {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #545149;
+    margin: 0px 15px;
+  }
+  .contact:hover {
+    color: #e79128;
+  }
 }
-
 
 .title {
   height: 3vh;
-
   display: flex;
 }
-
-.contact {
-  font-size: .5em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: black;
-}
-
-
-
-
