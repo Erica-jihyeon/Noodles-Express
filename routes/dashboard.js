@@ -74,28 +74,5 @@ module.exports = (db) => {
   });
 
 
-
-  // testing
-  // router.get("/update", (req, res) => {
-  //   //need to get from the owner (userId, orderId, cookingTime)
-  //   const userId = req.session.user_id;
-  //   let cookingTime = 30;
-  //   let orderId = 12;
-  //   let result = {};
-
-  //   updateOrderTable(db, cookingTime, orderId)
-  //     .then(data => {
-  //       console.log(data);
-  //       res.redirect("/dashboard")
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
-
-
-
   return router;
 };

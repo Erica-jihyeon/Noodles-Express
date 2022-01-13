@@ -34,15 +34,7 @@
     $('.order_now_button').on('click', () => {
       $.post('/order/order_now')
         .then((data) => {
-          // let ownerPhoneNum = '7786813760';
-          // const message = 'New order! Please check your dashboard!';
-          // //need to send a message
-          // send_sms(message ,ownerPhoneNum);
-          return $.getJSON('/order/cart/6')
-        })
-        .then((data) => {
-
-          showCart(data);
+          //can be added more features here
         })
         .catch((error) => {
           console.log('error = ', error);
@@ -195,7 +187,7 @@
         <div class="menuScrollCard card p-5">
         <div class="photoAndTitle d-flex flex-row">
           <div class="image card w-50">
-            <img id="dish_pic" src="${data[i].thumbnail_url}">
+            <img id="dish_pic" src="${data[i].image_url}">
           </div>
           <div class="itemTitleAndPrice d-flex flex-column w-50 mt-5 mb-5">
             <p class="itemTitle text-end">${data[i].item_name}</p>
@@ -282,24 +274,8 @@
         <div class="confirm_button d-flex justify-content-end">
         <button class="bi bi-cart-plus h3 m-3 confirm_button__" data="${data[i].menu_id}"></button>
       </div>
-
-
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
         </div>
-
-
         `;
     }
     //console.log(appendContent)
