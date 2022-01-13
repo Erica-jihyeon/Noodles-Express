@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const router = express.Router();
 
 const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow, findUserInfo } = require('./order_database');
 const { send_sms } = require('./send_sms');
+const ownerPhoneNum = process.env.OWNERS_NUMBER;
 
-// let ownerPhoneNum = '7786813760';
 // const message = 'New order! Please check your dashboard!';
 // //need to send a message
 // send_sms(message ,ownerPhoneNum);
@@ -166,7 +168,6 @@ module.exports = (db) => {
         res.json(result);
       })
       .then(() => {
-        let ownerPhoneNum = '7786813760';
         const message = 'New order! Please check your dashboard!';
         //need to send a message
         send_sms(message, ownerPhoneNum);
