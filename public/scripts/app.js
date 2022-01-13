@@ -173,7 +173,7 @@
           </div>
 
 
-<div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordionExample">
 
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
@@ -244,8 +244,6 @@
           <button class="bi bi-cart-plus h3 m-3"></button>
         </div>
         </div>
-
-      </div> <!-- customizations_confirm end -->
         </div>
 
 
