@@ -48,16 +48,16 @@ exports.getCartDetails = getCartDetails;
 
 
 const getItemsByCategory = function (db) {
-  const queryString1 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
+  const queryString1 = `SELECT id as menu_id, thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'appetizer'`;
-  const queryString2 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
+  const queryString2 = `SELECT id as menu_id, thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'main'`;
-  const queryString3 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
+  const queryString3 = `SELECT id as menu_id, thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'drink'`;
-  const queryString4 = `SELECT thumbnail_url, image_url, item_name, price, category, description, id as menu_id
+  const queryString4 = `SELECT id as menu_id, thumbnail_url, image_url, item_name, price, category, description, id as menu_id
   FROM menu_items
   WHERE category = 'dessert'`;
 

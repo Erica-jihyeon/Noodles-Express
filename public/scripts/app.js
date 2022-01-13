@@ -41,10 +41,10 @@
         });
     })
 
-    $('.spicy_button').on('click', (event) => {
-      customData.spiciness = $(event.target).attr('data');
-      console.log(customData);
-    });
+    // $('.spicy_button').on('click', (event) => {
+    //   customData.spiciness = $(event.target).attr('data');
+    //   console.log(customData);
+    // });
 
   });
 
@@ -143,16 +143,19 @@
 
     $('.hot_cold_button').on('click',(event) => {
       customData.hot_cold = $(event.target).attr('data');
+      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
       console.log(customData);
     });
 
     $('.size_button').on('click', (event) => {
       customData.size = $(event.target).attr('data');
+      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
       console.log(customData);
     });
 
     $('.spicy_button').on('click', (event) => {
       customData.spiciness = $(event.target).attr('data');
+      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
       console.log(customData);
     });
 
@@ -160,6 +163,11 @@
       event.preventDefault();
       if (Object.values(customData).some(e => e === null)) {
         alert('need to finish the customizations');
+      } else if (customData.menu_id !== $(event.target).attr('data')) {
+        alert('need to finish the customizations');
+        customData.hot_cold = null;
+        customData.size = null;
+        customData.spiciness = null;
       } else {
         customData.menu_id = $(event.target).attr('data');
         console.log(customData);
@@ -216,7 +224,7 @@
 
                       <td>Cold/Hot</td>
                       <td>
-                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data="${data[i].menu_id}">
                       <input type="radio" class="btn-check hot_cold_button" name="${data[i].item_name}-coldHot" id="${data[i].item_name}1" autocomplete="off" data=${true}>
                       <label class="btn btn-outline-primary" data=${true} for="${data[i].item_name}1">Hot</label>
 
@@ -228,7 +236,7 @@
                     <tr>
 
                       <td class="">Size</td>
-                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group" data="${data[i].menu_id}">
                         <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
                         <label class="btn btn-outline-primary" for="${data[i].item_name}3">S</label>
 
@@ -243,7 +251,7 @@
 
                       <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
                       <td>Spicyness</td>
-                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <td class="btn-group" role="group" aria-label="Basic radio toggle button group" data="${data[i].menu_id}">
                       <input type="radio" class="btn-check spicy_button" data="1" name="${data[i].item_name}-spicyness" id="${data[i].item_name}6" autocomplete="off">
                       <label class="btn btn-outline-primary" for="${data[i].item_name}6">🌶️</label>
 
