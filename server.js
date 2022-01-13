@@ -44,11 +44,13 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const myPageRoutes = require("./routes/mypage");
 const orderRoutes = require("./routes/order");
+const dashBoardRoutes = require("./routes/dashboard");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/mypage", myPageRoutes(db));
 app.use("/order", orderRoutes(db));
+app.use("/dashboard", dashBoardRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 

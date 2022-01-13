@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow } = require('./order_database');
+const { getCartDetails, getItemsByCategory, addCart, isCart, deleteItemFromCart, orderNow, findUserInfo } = require('./order_database');
 
 module.exports = (db) => {
 
@@ -55,7 +55,7 @@ module.exports = (db) => {
         // console.log(data);
         orderPageData.cart = data.cart;
         orderPageData.cartTotal = data.cartTotal === null ? data.cartTotal : data.cartTotal[0];
-
+        console.log(orderPageData)
         return getItemsByCategory(db);
       })
       .then(data => {
@@ -80,12 +80,13 @@ module.exports = (db) => {
     const userId = req.session.user_id
     let orderId;
     const result = {};
+    console.log('req.body', req.body);
 
     isCart(db, userId)
       .then(data => {
         console.log(`current cart: `, data);
         data.cart ? orderId = data.cart[0].orders_id : orderId = null;
-        return addCart(db, userId, orderId);
+        return addCart(db, userId, orderId, {...req.body});
       })
       .then(data => {
         console.log(`added to the cart: `, data[0]);
@@ -106,9 +107,6 @@ module.exports = (db) => {
 
   router.post("/delete_cart", (req, res) => {
     const userId = req.session.user_id
-    // need to get from front-end
-    // let customId = 16;
-    console.log(req.body);
     const customId = req.body.data;
     const result = {};
 
@@ -143,100 +141,21 @@ module.exports = (db) => {
 
   router.post("/order_now", (req, res) => {
     const userId = req.session.user_id;
-    let orderTime = new Date().toISOString();
-    let cookingTime = 30;
-    //need to get orderId from front-end
-    let orderId = 10;
-    let result = {};
-
-    orderNow(db, orderTime, orderId)
-      .then(data => {
-        result.cookingTime = cookingTime;
-        result.orderData = data;
-        console.log(`order status`, result);
-        res.json(result);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-
-
-  /** TESTING code */
-  // add_cart post testing
-  router.get("/test", (req, res) => {
-    const userId = req.session.user_id
     let orderId;
-    const result = {};
-
-    isCart(db, userId)
-      .then(data => {
-        console.log(`current cart: `, data);
-        data.cart ? orderId = data.cart[0].orders_id : orderId = null;
-        return addCart(db, userId, orderId);
-      })
-      .then(data => {
-        console.log(`added to the cart: `, data[0]);
-        return getCartDetails(db, userId)
-      })
-      .then(data => {
-        result.cart = data.cart;
-        result.cartTotal = data.cartTotal[0];
-        console.log(`all info in the cart: `, result);
-        res.json(result);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-
-  // delete_cart post testing
-  router.get("/testd", (req, res) => {
-    const userId = req.session.user_id
-    let customId = 16;
-    const result = {};
-
-    isCart(db, userId)
-      .then(data => {
-        console.log(`current cart: `, data);
-        return deleteItemFromCart(db, customId);
-      })
-      .then(data => {
-        console.log(`deleted from the cart: `, data[0]);
-        return getCartDetails(db, userId)
-      })
-      .then(data => {
-        result.cart = data.cart;
-        result.cartTotal = data.cartTotal[0];
-        console.log(`all info in the cart: `, result);
-        res.json(result);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-
-   // order now route testing
-   router.get("/testo", (req, res) => {
-    const userId = req.session.user_id;
-    let orderTime = new Date().toISOString();
-    let cookingTime = 30;
-    //need to get orderId from front-end
-    let orderId = 10;
     let result = {};
 
-    orderNow(db, orderTime, orderId)
+    isCart(db, userId)
       .then(data => {
-        result.cookingTime = cookingTime;
+        orderId = data.cart[0].orders_id;
+        return orderNow(db, orderId)
+      })
+      .then(data => {
+        console.log(data);
         result.orderData = data;
+        return findUserInfo(db, userId);
+      })
+      .then(data => {
+        result.users = data;
         console.log(`order status`, result);
         res.json(result);
       })
@@ -246,7 +165,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
 
   return router;
 };
