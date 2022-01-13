@@ -95,17 +95,19 @@ margin-right: 3rem!important;
 // }
 
 .cutomizations_confirm {
-  background-color: chartreuse;
-
-  border-radius: 15px;
+  background-color: floralwhite;
   padding: 1em;
-  margin-top: 0 !important;
+  margin: 0 !important;
   font-size: small;
   width: fit-content;
   // visibility: collapse;
 }
 
-.btn-group-a {
+.accordion-body {
+  padding: 0;
+}
+
+.btn-group {
   display: flex;
   flex-direction: column;
 

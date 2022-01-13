@@ -216,18 +216,18 @@
           <div class="accordion" id="accordionExample">
           <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree${i}" aria-expanded="false" aria-controls="collapseThree${i}">
                     Customizations
                   </button>
                   </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div id="collapseThree${i}" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                 <div class="cutomizations_confirm d-flex flex-column mt-5 mb-5">
                 <table class="table">
                   <h5>Customizations</h5>
                   <tbody>
                     <tr>
-                      <td></td>
+
                       <td>Cold/Hot</td>
                       <td>
                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -240,7 +240,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td></td>
+
                       <td class="">Size</td>
                       <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check size_button" data="small" name="${data[i].item_name}-size" id="${data[i].item_name}3" autocomplete="off">
@@ -254,7 +254,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td></td>
+                      
                       <!-- Bootstrap Buttons won't show selected values, need to use javascript to do that later. -->
                       <td>Spicyness</td>
                       <td class="btn-group" role="group" aria-label="Basic radio toggle button group">
