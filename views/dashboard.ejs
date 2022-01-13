@@ -18,315 +18,79 @@
     <div class="mainContainer m-5">
       <!-- Current Orders card -->
       <div class="currentOrderContainer d-flex flex-column m-5">
-        <h2 class="currentOrderTitle w-100">Pending Orders</h2>
+        <h2 class="currentOrderTitle w-100">All Orders</h2>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Order #</th>
-              <th scope="col">Date</th>
               <th scope="col">Order Time</th>
               <th scope="col">P/U Time</th>
               <th scope="col">Status</th>
               <th scope="col">Ordered Items</th>
               <th scope="col">Customer</th>
               <th scope="col">Total $</th>
-              <th scope="col">Ready</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <% for(let ctOrder in currentOrder) { %>
-            <tr>
-              <th><%= currentOrder[ctOrder]['order_id'] %></th>
-              <td><%= ('0'+currentOrder[ctOrder]['date'].getDate()).slice(-2) %>
-                <% switch (currentOrder[ctOrder]['date'].getMonth()) {
-                case 0 : %>
-                        Jan
-                        <% break;
-                case 1 : %>
-                        Feb
-                        <% break;
-                case 2 : %>
-                        Mar
-                        <% break;
-                case 3 : %>
-                        Apr
-                        <% break;
-                case 4 : %>
-                        May
-                        <% break;
-                case 5 : %>
-                        Jun
-                        <% break;
-                case 6 : %>
-                        Jul
-                        <% break;
-                case 7 : %>
-                        Aug
-                        <% break;
-                case 8 : %>
-                        Sep
-                        <% break;
-                case 9 : %>
-                        Oct
-                        <% break;
-                case 10 : %>
-                        Nov
-                        <% break;
-                case 11 : %>
-                        Dec
-                        <% break;
-                } %>
-                  <%= currentOrder[ctOrder]['date'].getFullYear() %></td>
-              <td><%= ('0'+currentOrder[ctOrder]['date'].getHours()).slice(-2); %>:<%= ('0'+currentOrder[ctOrder]['date'].getMinutes()).slice(-2); %></td>
-              <td><%= currentOrder[ctOrder]['pick_up_time']? ('0'+currentOrder[ctOrder]['pick_up_time'].getHours()).slice(-2)+':'+('0'+currentOrder[ctOrder]['pick_up_time'].getMinutes()).slice(-2) :'TBD';%></td>
-              <td><%= currentOrder[ctOrder]['order_status'] %></td>
-              <td>
-                <% for(let currentOrderBasket of currentOrderTotal[currentOrder[ctOrder]['order_id']]) { %>
-                    <%= currentOrderBasket['item'] %>(<%=  currentOrderBasket['hot'] ? 'Hot' : 'Cold' %>/<%= currentOrderBasket['item_size'] %>/Spicyness:<%= currentOrderBasket['spiciness'] %>) $<%= Number(currentOrderBasket['price']).toFixed(2) %><br>
-                  <% } %>
+            <% for(let order in data) { %>
+              <tr>
+                <td>
+                  <%= data[order][0]['order_id'];%>
+                </td>
+                <td class="col-2">
+                  <%= data[order][0]['order_time'];%>
+                </td>
+                <td class="col-2">
+                  <%= data[order][0]['pick_up_time'];%>
+                </td>
+                <td>
+                  <%= data[order][0]['order_status'] %>
+                </td>
+                <td>
+                  <% for(let item of data[order]) { %>
+                    <%= item['item_name'] %>
+                    <br>
+                    <div class="ps-2">
+                    + (<%= item['hot'] ? 'Hot' : 'Cold' %>
+                    / <%=item['item_size'] %>
+                    / Spicyness:<%= item['spiciness'] %>)
+                  </div>
+                    <% } %>
+                </td>
+                <td>
+                  <%= data[order][0]['first_name'] %> <%= data[order][0]['last_name'] %><br>
+                    <%= data[order][0]['phone'] %>
+                </td>
+                <td>
+                  Sub Total: $<%= Number(data[order][0]['total']).toFixed(2) %><br>
+                    Tax@5: %$<%= (data[order][0]['total'] * 0.05).toFixed(2) %><br>
+                      Total: $<%= (Number(data[order][0]['total'] * 0.05) +
+                        Number(data[order][0]['total'])).toFixed(2) %>
+                </td>
+                <td class="col-1">
+                    <% if(data[order][0]['order_status'] === null){ %>
+                      <form class="row-auto">
+                        <div class="col-auto">
+                          <label for="inputPassword2" class="visually-hidden">Minutes</label>
+                          <input type="minutes" class="form-control" id="inputPassword2" placeholder="Minutes">
+                        </div>
+                        <div class="col-auto">
+                          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                        </div>
+                      </form>
+                      <% } else if(data[order][0]['order_status'] === 'Preparing your meal'){ %>
+                        <button type="readyBtn" class="btn btn-primary">Ready</button>
+                        <% } else if(data[order][0]['order_status'] === 'Ready for pick up'){ %>
+                          <button type="readyBtn" class="btn btn-primary">Complete</button>
+                <% } %>
               </td>
-              <td><%= currentOrder[ctOrder]['name'] %><br>
-                <%= currentOrder[ctOrder]['phone'] %>
-              </td>
-              <td>$<%= (Number(currentOrder[ctOrder]['sum'] * 0.05) + Number(currentOrder[ctOrder]['sum'])).toFixed(2) %></td>
-              <td>Ready for Pick Up</td>
-            </tr>
-            <% } %>
+              </tr>
+              <% } %>
           </tbody>
         </table>
-
-
-        <div class="currentOrderCardContainer flex-column w-75">
-          <% for(let ctOrder in currentOrder) { %>
-          <div class="currentOrder card mb-5">
-            <h5 class="card-header">Order: #<%= currentOrder[ctOrder]['order_id'] %></h5>
-            <div class="card-body d-flex">
-              <div class="cardLeft w-50">
-                <table class="table table-borderless">
-                  <h5>Details</h5>
-                  <tbody>
-                    <tr>
-                      <th scope="col">Date</th>
-                      <td> <%= ('0'+currentOrder[ctOrder]['date'].getDate()).slice(-2) %>
-                        <% switch (currentOrder[ctOrder]['date'].getMonth()) {
-                        case 0 : %>
-                                Jan
-                                <% break;
-                        case 1 : %>
-                                Feb
-                                <% break;
-                        case 2 : %>
-                                Mar
-                                <% break;
-                        case 3 : %>
-                                Apr
-                                <% break;
-                        case 4 : %>
-                                May
-                                <% break;
-                        case 5 : %>
-                                Jun
-                                <% break;
-                        case 6 : %>
-                                Jul
-                                <% break;
-                        case 7 : %>
-                                Aug
-                                <% break;
-                        case 8 : %>
-                                Sep
-                                <% break;
-                        case 9 : %>
-                                Oct
-                                <% break;
-                        case 10 : %>
-                                Nov
-                                <% break;
-                        case 11 : %>
-                                Dec
-                                <% break;
-                        } %>
-                          <%= currentOrder[ctOrder]['date'].getFullYear() %> </td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Order Time</th>
-                      <td><%= ('0'+currentOrder[ctOrder]['date'].getHours()).slice(-2); %>:<%= ('0'+currentOrder[ctOrder]['date'].getMinutes()).slice(-2); %></td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Pick Up Time</th>
-                      <td><%= currentOrder[ctOrder]['pick_up_time']? ('0'+currentOrder[ctOrder]['pick_up_time'].getHours()).slice(-2)+':'+('0'+currentOrder[ctOrder]['pick_up_time'].getMinutes()).slice(-2) :'TBD';%></td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Location</th>
-                      <td>1234 King Street, Vancouver, BC V1K 6S7</td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Status</th>
-                      <td><%= currentOrder[ctOrder]['order_status'] %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="cardRighttable-responsive w-50">
-                <table class="table">
-                  <h5>Ordered Items</h5>
-                  <thead>
-                    <tr>
-                      <th scope="col">Item</th>
-                      <th scope="col">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for(let currentOrderBasket of currentOrderTotal[currentOrder[ctOrder]['order_id']]) { %>
-                    <tr>
-                      <td><%= currentOrderBasket['item'] %></td>
-                      <td>$<%= Number(currentOrderBasket['price']).toFixed(2) %></td>
-                    </tr>
-                    <tr><td class="ps-5">+ Hot/Cold: <%=  currentOrderBasket['hot'] ? 'Hot' : 'Cold' %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Size: <%= currentOrderBasket['item_size'] %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Spiciness: <%= currentOrderBasket['spiciness'] %></td><td></td></tr>
-                    <% } %>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td class="text-end">Sub-Total</td>
-                      <td>$<%= Number(currentOrder[ctOrder]['sum']).toFixed(2) %></td>
-                    </tr>
-                    <tr>
-                      <td class="text-end">Tax@5%</td>
-                      <td>$<%= (currentOrder[ctOrder]['sum'] * 0.05).toFixed(2) %></td>
-                    </tr>
-                    <tr>
-                      <td class="text-end">Total</td>
-                      <td>$<%= (Number(currentOrder[ctOrder]['sum'] * 0.05) + Number(currentOrder[ctOrder]['sum'])).toFixed(2) %></td>
-                    </tr>
-                  </tfoot>
-                </table>
-
-              </div>
-            </div>
-          </div>
-          <% } %>
-        </div>
       </div>
-      <!--  -->
-      <hr>
-      <!-- Past Orders card -->
-      <div class="pastOrderContainer d-flex flex-row m-5">
-        <h2 class="pastOrderTitle w-25">Past Orders</h2>
-        <div class="pastOrderCardContainer flex-column w-75">
-          <% for(let prevOrder in prevOrders) { %>
-          <div class="pastOrder card mb-5">
-            <h5 class="card-header">Order: #<%= prevOrders[prevOrder]['order_id'] %></h5>
-            <div class="card-body d-flex">
-              <div class="cardLeft w-50">
-                <table class="table table-borderless">
-                  <h5>Details</h5>
-                  <tbody>
-                    <tr>
-                      <th scope="col">Date</th>
-                      <td> <%= ('0'+prevOrders[prevOrder]['date'].getDate()).slice(-2) %>
-                        <% switch (prevOrders[prevOrder]['date'].getMonth()) {
-                        case 0 : %>
-                                Jan
-                                <% break;
-                        case 1 : %>
-                                Feb
-                                <% break;
-                        case 2 : %>
-                                Mar
-                                <% break;
-                        case 3 : %>
-                                Apr
-                                <% break;
-                        case 4 : %>
-                                May
-                                <% break;
-                        case 5 : %>
-                                Jun
-                                <% break;
-                        case 6 : %>
-                                Jul
-                                <% break;
-                        case 7 : %>
-                                Aug
-                                <% break;
-                        case 8 : %>
-                                Sep
-                                <% break;
-                        case 9 : %>
-                                Oct
-                                <% break;
-                        case 10 : %>
-                                Nov
-                                <% break;
-                        case 11 : %>
-                                Dec
-                                <% break;
-                        } %>
-                          <%= prevOrders[prevOrder]['date'].getFullYear() %> </td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Order Time</th>
-                      <td><%= ('0'+prevOrders[prevOrder]['date'].getHours()).slice(-2); %>:<%= ('0'+prevOrders[prevOrder]['date'].getMinutes()).slice(-2); %></td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Pick Up Time</th>
-                      <td><%= ('0'+prevOrders[prevOrder]['pick_up_time'].getHours()).slice(-2); %>:<%= ('0'+prevOrders[prevOrder]['pick_up_time'].getMinutes()).slice(-2); %></td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Location</th>
-                      <td>1234 King Street, Vancouver, BC V1K 6S7</td>
-                    </tr>
-                    <tr>
-                      <th scope="col">Status</th>
-                      <td><%= prevOrders[prevOrder]['order_status'] %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="cardRighttable-responsive w-50">
-                <table class="table">
-                  <h5>Ordered Items</h5>
-                  <thead>
-                    <tr>
-                      <th scope="col">Item</th>
-                      <th scope="col">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for(let prevOrderBasket of prevOrdersDetail[prevOrders[prevOrder]['order_id']]) { %>
-                    <tr>
-                      <td><%= prevOrderBasket['item'] %></td>
-                      <td>$<%= Number(prevOrderBasket['price']).toFixed(2) %></td>
-                    </tr>
-                    <tr><td class="ps-5">+ Hot/Cold: <%=  prevOrderBasket['hot'] ? 'Hot' : 'Cold' %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Size: <%= prevOrderBasket['item_size'] %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Spiciness: <%= prevOrderBasket['spiciness'] %></td><td></td></tr>
-                    <% } %>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td class="text-end">Sub-Total</td>
-                      <td>$<%= Number(prevOrders[prevOrder]['sum']).toFixed(2) %></td>
-                    </tr>
-                    <tr>
-                      <td class="text-end">Tax@5%</td>
-                      <td>$<%= (prevOrders[prevOrder]['sum'] * 0.05).toFixed(2) %></td>
-                    </tr>
-                    <tr>
-                      <td class="text-end">Total</td>
-                      <td>$<%= (Number(prevOrders[prevOrder]['sum'] * 0.05) + Number(prevOrders[prevOrder]['sum'])).toFixed(2) %></td>
-                    </tr>
-                  </tfoot>
-                </table>
 
-              </div>
-            </div>
-          </div>
-          <% } %>
-        </div>
-      </div>
     </div>
 
 </body>
