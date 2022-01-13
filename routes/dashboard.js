@@ -9,7 +9,17 @@ module.exports = (db) => {
     getAllOrders(db)
       .then(data => {
         // console.log(data);
-        res.render('dashboard', {data});
+        const orders = {};
+        for (const row of data) {
+          if (row.order_id in orders) {
+            orders[row.order_id].push(row);
+          } else {
+            orders[row.order_id] = [row];
+          }
+        }
+
+        // console.log(orders);
+        res.render('dashboard', {data: orders});
       })
       .catch(err => {
         res
