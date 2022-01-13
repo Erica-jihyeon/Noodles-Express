@@ -1,8 +1,19 @@
 const { query } = require('express');
 
 const getAllOrders = function(db) {
+
   const queryStr = `
-  SELECT orders.id as order_id, order_time, pick_up_time, order_status, users.phone, users.id as user_id FROM orders JOIN users ON orders.user_id = users.id ORDER BY orders.id`;
+  SELECT DISTINCT orders.id as order_id, users.id as user_id, users.first_name, users.last_name, users.phone, orders.order_time, orders.pick_up_time, orders.order_status, total_table.total
+  FROM orders
+  JOIN users ON user_id = users.id
+  JOIN customizations ON order_id = orders.id
+  JOIN (SELECT orders.id as order_id, sum(menu_items.price) as total
+  FROM customizations
+  JOIN menu_items ON menu_items.id = menu_item_id
+  RIGHT JOIN orders ON orders.id = order_id
+  JOIN users ON users.id = user_id
+  GROUP BY orders.id) as total_table ON total_table.order_id = orders.id
+  ORDER BY orders.id DESC`;
 
   return db
     .query(queryStr)
@@ -14,6 +25,7 @@ const getAllOrders = function(db) {
   });
 }
 exports.getAllOrders = getAllOrders;
+
 
 const updateOrderTable = function(db, cookingTime, orderId) {
 
