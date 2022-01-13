@@ -8,8 +8,8 @@ module.exports = (db) => {
 
     getAllOrders(db)
       .then(data => {
-        console.log(data);
-        // res.render('dashboard', {data});
+        // console.log(data);
+        res.render('dashboard', {data});
       })
       .catch(err => {
         res
