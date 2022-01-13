@@ -9,14 +9,19 @@
   width: -webkit-fill-available;
   flex-direction: row;
   justify-content: center;
+  background-color: #f4f1ec;
 }
 
 .nav-link {
   font-size: medium;
   padding-left: 2em;
   color: #F2BA4D;
+  background-color: #f4f1ec;
 }
 
+.page_body_container {
+  background-color: #f4f1ec;
+}
 
 .card {
   position: relative;
@@ -48,6 +53,11 @@
 
 }
 
+.btn-primary {
+  background-color: #f2ba4d;
+  border-color: #f2ba4d;
+
+}
 
 .deleteBtn {
   color: red;
@@ -60,13 +70,16 @@
 // MENU items after orginal visit
 
 .photoAndTitle {
-  background-color: #F2BA4D;
+  background-color: #f4f1ec;
+  border: 2px solid #f2ba4d;
+  border-radius: 15px;
   box-sizing: content-box;
   box-shadow: 3px 3px 3px rgba(187, 175, 89, 0.5);
-  border-radius: 5px;
+
   padding: 1em;
   height: fit-content;
   font-size: small;
+  font-family: $primary-font !important;
 
   display: flex !important;
   align-content: flex-start;
@@ -75,7 +88,7 @@
 }
 
 #dish_pic {
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #F2BA4D;
 }
 
@@ -101,8 +114,10 @@
 }
 
 .w-50 {
+  background-color: #f4f1ec;
   width: 50vw!important;
   height: fit-content;
+  border-radius: 10px;
 }
 .ms-5 {
 margin-left: 3rem!important;
@@ -114,11 +129,14 @@ margin-right: 3rem!important;
 .menu_and_cart_container {
   display: flex;
   padding-top: 120px;
+  background-color: #f4f1ec;
+
 }
 
 .menuScrollCard {
   border: none;
   padding-top: 0em !important;
+  background-color: #f4f1ec;
 }
 
 // Customizations
@@ -168,7 +186,7 @@ margin-right: 3rem!important;
   margin: 0 !important;
   background-color: transparent;
   border: transparent;
-  color: #fff;
+  color: #f2ba4d;
 }
 
 .accordion {
@@ -183,9 +201,14 @@ margin-right: 3rem!important;
 
 .accordion-button {
   padding: 3px;
-  background-color: #F2BA4D;
+  background-color: #f4f1ec;
 
-  color: #fff;
+
+  border: 2px solid #f2ba4d;
+  border-radius: 15px;
+
+  color: #F2BA4D;
+
 }
 
 
