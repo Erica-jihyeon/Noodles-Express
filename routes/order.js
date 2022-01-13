@@ -158,14 +158,9 @@ module.exports = (db) => {
         return orderNow(db, orderId)
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         result.orderData = data;
         return findUserInfo(db, userId);
-      })
-      .then(data => {
-        result.users = data;
-        console.log(`order status`, result);
-        res.json(result);
       })
       .then(() => {
         const message = 'New order! Please check your dashboard!';
