@@ -27,7 +27,7 @@ const getCurrentOrdersDetails = function(db, userID) {
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
-  WHERE users.id = $1 AND order_time IS NOT NULL AND order_status='Preparing your meal'
+  WHERE users.id = $1 AND order_time IS NOT NULL AND (order_status='ordered' OR order_status='Preparing your meal')
   GROUP BY orders.id
   ORDER BY order_id DESC;
   `;
@@ -38,7 +38,7 @@ const getCurrentOrdersDetails = function(db, userID) {
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
-  WHERE users.id = $1 AND order_status='Preparing your meal' AND order_time IS NOT NULL
+  WHERE users.id = $1 AND order_time IS NOT NULL AND (order_status='ordered' OR order_status='Preparing your meal')
   ORDER BY order_id DESC;
   `;
 
@@ -73,7 +73,7 @@ const getPrevOrders = function(db, userID) {
   JOIN menu_items ON menu_items.id = menu_item_id
   JOIN orders ON orders.id = order_id
   JOIN users ON users.id = user_id
-  WHERE users.id = $1 AND pick_up_time IS NOT NULL
+  WHERE users.id = $1 AND pick_up_time IS NOT NULL AND order_status='complete'
   GROUP BY orders.id
   ORDER BY order_id DESC;
   `;

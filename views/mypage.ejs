@@ -110,9 +110,7 @@
                       <td><%= currentOrderBasket['item'] %></td>
                       <td>$<%= Number(currentOrderBasket['price']).toFixed(2) %></td>
                     </tr>
-                    <tr><td class="ps-5">+ Hot/Cold: <%=  currentOrderBasket['hot'] ? 'Hot' : 'Cold' %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Size: <%= currentOrderBasket['item_size'] %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Spiciness: <%= currentOrderBasket['spiciness'] %></td><td></td></tr>
+                    <tr><td class="ps-5"> (Hot/Cold: <%=  currentOrderBasket['hot'] ? 'Hot' : 'Cold' %> / Size: <%= currentOrderBasket['item_size'] %> / Spiciness: <%= currentOrderBasket['spiciness'] %>)</td><td></td></tr>
                     <% } %>
                   </tbody>
                   <tfoot>
@@ -228,9 +226,7 @@
                       <td><%= prevOrderBasket['item'] %></td>
                       <td>$<%= Number(prevOrderBasket['price']).toFixed(2) %></td>
                     </tr>
-                    <tr><td class="ps-5">+ Hot/Cold: <%=  prevOrderBasket['hot'] ? 'Hot' : 'Cold' %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Size: <%= prevOrderBasket['item_size'] %></td><td></td></tr>
-                    <tr><td class="ps-5">+ Spiciness: <%= prevOrderBasket['spiciness'] %></td><td></td></tr>
+                    <tr><td class="ps-5">(Hot/Cold: <%=  prevOrderBasket['hot'] ? 'Hot' : 'Cold' %> / Size: <%= prevOrderBasket['item_size'] %> / Spiciness: <%= prevOrderBasket['spiciness'] %>)</td><td></td></tr>
                     <% } %>
                   </tbody>
                   <tfoot>

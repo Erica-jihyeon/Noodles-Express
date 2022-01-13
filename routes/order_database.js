@@ -161,7 +161,7 @@ exports.deleteItemFromCart = deleteItemFromCart;
 
 const orderNow = function(db, orderId) {
 
-  const queryStr = `UPDATE orders SET order_time=current_timestamp WHERE id=$1 RETURNING*`;
+  const queryStr = `UPDATE orders SET order_time=current_timestamp, order_status='ordered' WHERE id=$1 RETURNING*`;
   const queryParam = [orderId];
 
   return db
