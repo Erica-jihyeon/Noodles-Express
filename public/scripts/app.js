@@ -92,23 +92,13 @@
           <tr>
           <td><button class="deleteBtn" data-custom-id=${data.cart[i].custom_id}>X</button></td>
           <td>${data.cart[i]['item']}</td>
-          <td>${data.cart[i]['price'].toFixed(2)}</td>
+          <td>$${data.cart[i]['price'].toFixed(2)}</td>
         </tr>
         <tr>
           <td></td>
-          <td class="ps-3 pt-0 pb-0">+${data.cart[i]['hot'] ? 'Hot' : 'Cold'}</td>
+          <td class="ps-3">+${data.cart[i]['hot'] ? 'Hot' : 'Cold'} / ${data.cart[i]['item_size']} / Spiciness: ${data.cart[i]['spiciness']}</td>
           <td></td>
         </tr>
-        <tr>
-        <td></td>
-        <td class="ps-3 pt-0 pb-0">+${data.cart[i]['item_size']}</td>
-        <td></td>
-      </tr>
-      <tr>
-      <td></td>
-      <td class="ps-3 pt-0 pb-0">+${data.cart[i]['spiciness']}</td>
-      <td></td>
-    </tr>
           `;
       }
       return appendContent;
