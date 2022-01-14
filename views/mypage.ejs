@@ -26,6 +26,7 @@
         <h2 class="currentOrderTitle w-25">Current Orders</h2>
         <div class="currentOrderCardContainer flex-column w-75">
           <% if (currentOrder)  {%>
+            <h2>We have received your order! The resturant has been notified.</h2>
           <% for(let ctOrder in currentOrder) { %>
           <div class="currentOrder card mb-5">
             <h5 class="card-header">Order: #<%= currentOrder[ctOrder]['order_id'] %></h5>
