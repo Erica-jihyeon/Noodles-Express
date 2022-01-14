@@ -187,20 +187,38 @@
     })
 
     $('.hot_cold_button').on('click',(event) => {
-      customData.hot_cold = $(event.target).attr('data');
-      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      if (customData.menu_id !== $(event.target).parent('.btn-group').attr('data')) {
+        customData.hot_cold = customData.hot_cold = $(event.target).attr('data');
+        customData.size = null;
+        customData.spiciness = null;
+        customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      } else {
+        customData.hot_cold = $(event.target).attr('data');
+      }
       console.log(customData);
     });
 
     $('.size_button').on('click', (event) => {
-      customData.size = $(event.target).attr('data');
-      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      if (customData.menu_id !== $(event.target).parent('.btn-group').attr('data')) {
+        customData.hot_cold = null;
+        customData.size = $(event.target).attr('data');
+        customData.spiciness = null;
+        customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      } else {
+        customData.size = $(event.target).attr('data');
+      }
       console.log(customData);
     });
 
     $('.spicy_button').on('click', (event) => {
-      customData.spiciness = $(event.target).attr('data');
-      customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      if (customData.menu_id !== $(event.target).parent('.btn-group').attr('data')) {
+        customData.hot_cold = null;
+        customData.size = null;
+        customData.spiciness = $(event.target).attr('data');
+        customData.menu_id = $(event.target).parent('.btn-group').attr('data');
+      } else {
+        customData.spiciness = $(event.target).attr('data');
+      }
       console.log(customData);
     });
 
