@@ -8,6 +8,27 @@
 (function($) {
   $(() => {
 
+    $("#allFilterBtn").click(function () {
+      var rows = $("#table_body").find("tr").hide();
+      console.log($("#table_body").find("tr td:eq(1)"))
+      rows.filter(":contains('')").show();
+   });
+
+    $("#newFilterBtn").click(function () {
+      var rows = $("#table_body").find("tr").hide();
+      rows.filter(":contains('ordered')").show();
+   });
+
+    $("#acceptedFilterBtn").click(function () {
+      var rows = $("#table_body").find("tr").hide();
+      rows.filter(":contains('Preparing your meal')").show();
+   });
+
+    $("#completedFilterBtn").click(function () {
+      var rows = $("#table_body").find("tr").hide();
+      rows.filter(":contains('complete')").show();
+   });
+
     const loadCart = function() {
       $.getJSON('/order/cart/6')
         .then((data) => {
