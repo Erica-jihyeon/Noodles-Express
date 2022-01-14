@@ -59,3 +59,60 @@ const completeOrder = function(db, orderId) {
       });
 }
 exports.completeOrder = completeOrder;
+
+
+
+const addMenu = function(db, addData) {
+
+  const queryStr = `INSERT INTO menu_items (item_name, price, description, image_url, thumbnail_url, category) VALUES ($1, $2, $3, $4, $5, $6)`;
+  const queryParam = [addData.item_name, addData.price, addData.description, addData.image_url, addData.thumbnail_url, addData.category];
+
+  const queryStr2 = `SELECT id, item_name, price, category FROM menu_items`;
+
+ return db
+    .query(queryStr, queryParam)
+      .then((data) => {
+        return db.query(queryStr2);
+      })
+      .then((data) => {
+        return data.rows;
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+}
+exports.addMenu = addMenu;
+
+const getAllMenu = function(db) {
+  const queryStr = `SELECT id, item_name, price, category FROM menu_items ORDER BY id`;
+
+  return db
+      .query(queryStr)
+        .then((data) => {
+          return data.rows;
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+
+}
+
+exports.getAllMenu = getAllMenu;
+
+
+const deleteMenu = function(db, menuId) {
+  const queryStr = `DELETE FROM menu_items WHERE id=$1`;
+  const queryParam = [menuId]
+
+  return db
+      .query(queryStr, queryParam)
+        .then((data) => {
+          return;
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+
+}
+
+exports.deleteMenu = deleteMenu;

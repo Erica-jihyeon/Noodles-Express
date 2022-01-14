@@ -1,5 +1,7 @@
+const { Router } = require('express');
 const express = require('express');
-const { getAllOrders, updateOrderTable, completeOrder } = require('./dashboard_database');
+const { route } = require('express/lib/application');
+const { getAllOrders, updateOrderTable, completeOrder, addMenu, getAllMenu, deleteMenu } = require('./dashboard_database');
 const { send_sms } = require('./send_sms');
 const router  = express.Router();
 
@@ -72,6 +74,45 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+
+
+  router.get("/add_menu", (req, res) => {
+
+    getAllMenu(db)
+      .then((data) => {
+        console.log(data);
+        res.render('add_menu', {data});
+      })
+
+  })
+
+  router.post("/add_menu", (req, res) => {
+    //get req body -> redirect(anchor at ejs)
+    if (Object.values(req.body).some(e => e === '')) {
+      res.redirect('/dashboard/add_menu');
+    } else  {
+      addMenu(db, { ...req.body })
+      .then((data) => {
+        res.redirect("/dashboard/add_menu");
+      })
+    }
+    console.log(req.body);
+  })
+
+  router.post("/delete_menu", (req, res) => {
+    //get req body -> redirect(anchor at ejs)
+    const menuId = req.body.menu_id;
+    console.log(menuId);
+    deleteMenu(db, menuId)
+      .then((data) => {
+        res.redirect("/dashboard/add_menu");
+      })
+
+  })
+
+
 
 
   return router;
