@@ -141,6 +141,16 @@
 
     $container.append(appendContent);
 
+    let $customSlide;
+
+    $('.accordion-button').on('click', (event) => {
+      $customSlide = $(event.target);
+      //custom slide up/down
+      $customSlide.parent().siblings('.accordion-collapse').toggle();
+      //remove the clicked status
+      $('.btn-group').find('label').removeClass('active').end().find('[type="radio"]').prop('checked', false);
+    })
+
     $('.hot_cold_button').on('click',(event) => {
       customData.hot_cold = $(event.target).attr('data');
       customData.menu_id = $(event.target).parent('.btn-group').attr('data');
@@ -171,6 +181,10 @@
       } else {
         customData.menu_id = $(event.target).attr('data');
         console.log(customData);
+        //remove the clicked status and slide up when user added the item to the cart
+        $customSlide.parent().siblings('.accordion-collapse').toggle();
+        $('.btn-group').find('label').removeClass('active').end().find('[type="radio"]').prop('checked', false);
+
         $.post('/order/add_cart', customData)
         .then((data) => {
           showCart(data);
@@ -210,7 +224,7 @@
           <div class="accordion" id="accordionExample">
           <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree${i}" aria-expanded="false" aria-controls="collapseThree${i}">
+                    <button class="accordion-button collapsed" type="button" data-bs-target="#collapseThree${i}" aria-expanded="false" aria-controls="collapseThree${i}">
                     Customizations
                   </button>
                   </h2>
