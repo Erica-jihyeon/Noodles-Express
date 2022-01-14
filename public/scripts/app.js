@@ -180,6 +180,9 @@
 
     $('.accordion-button').on('click', (event) => {
       $customSlide = $(event.target);
+      customData.hot_cold = null;
+      customData.size = null;
+      customData.spiciness = null;
       //custom slide up/down
       $customSlide.parent().siblings('.accordion-collapse').toggle();
       //remove the clicked status
