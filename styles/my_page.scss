@@ -51,6 +51,11 @@
 
  }
 
+ .currentOrderMsg {
+  h2{
+   color: $font-color;
+  }
+}
 
 
 .pastOrderCardContainer {
@@ -59,7 +64,8 @@
 }
 
 #dancing_ramen {
-  height: 15em;
+  height: 32em;
+  margin-left: 4rem;
 }
 ///////
 .cardLeft {
