@@ -5,7 +5,7 @@ CREATE TABLE orders (
   user_id INTEGER REFERENCES users(id),
   order_time TIMESTAMP,
   pick_up_time TIMESTAMP,
-  order_status VARCHAR(255)
+  order_status VARCHAR(255) DEFAULT 'In Cart'
 );
 
 --order_time is null -> itmes in cart
