@@ -1,4 +1,6 @@
+
 @import "global_val";
+
 
 .mainContainer {
   margin: 0 !important;
@@ -27,7 +29,7 @@
 }
 
 .pastOrder {
-  background-color: #f4f1ec;
+  background-color: #f2ba4d;
   border-radius: 15px;
   border: 2px solid #f2ba4d;
 }
@@ -44,8 +46,16 @@
   height: fit-content;
   background-color: #f4f1ec;
   // border: 2px solid #f2ba4d;
-  border-radius: 15px;
 }
+
+  // border-radius: 15px;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+
+
+ }
+
+
 
 .pastOrderCardContainer {
   font-size: xx-small;
