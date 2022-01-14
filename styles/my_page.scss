@@ -127,3 +127,19 @@ footer {
     font-size: 1.2rem;
   }
 }
+
+.m-4 {
+  margin: 1.5rem!important;
+  display: flex !important;
+  justify-content: center !important;
+  border: 2px solid #f2ba4d;
+  border-radius: 7px;
+  color: #f2ba4d;
+
+  box-shadow: 3px 3px 3px rgba(187, 175, 89, 0.5);
+}
+
+#dancing_ramen_top {
+  padding-top: 5px;
+  height: .85em;
+}
