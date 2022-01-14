@@ -12,6 +12,10 @@
 
   <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
   <link rel="stylesheet" href="/styles/dashboard.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+
   <title>Noodles Express</title>
 </head>
 
@@ -20,7 +24,13 @@
     <div class="mainContainer m-5">
       <!-- Current Orders card -->
       <div class="currentOrderContainer d-flex flex-column m-5">
-        <h2 class="currentOrderTitle w-100">All Orders</h2>
+        <h2 class="currentOrderTitle w-100">Orders</h2>
+        <div class="filterBtnsGroup">
+          <button id="allFilterBtn" type="button" class="btn btn-primary">All Orders</button>
+          <button id="newFilterBtn" type="button" class="btn btn-primary">New Orders</button>
+          <button id="acceptedFilterBtn" type="button" class="btn btn-primary">Accepted Orders</button>
+          <button id="completedFilterBtn" type="button" class="btn btn-primary">Completed Orders</button>
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -34,7 +44,7 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table_body">
             <% for(let order in data) { %>
               <tr>
                 <td>
