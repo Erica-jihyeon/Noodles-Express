@@ -25,6 +25,7 @@
       <div class="currentOrderContainer d-flex flex-row m-5">
         <h2 class="currentOrderTitle w-25">Current Orders</h2>
         <div class="currentOrderCardContainer flex-column w-75">
+          <% if (currentOrder)  {%>
           <% for(let ctOrder in currentOrder) { %>
           <div class="currentOrder card mb-5">
             <h5 class="card-header">Order: #<%= currentOrder[ctOrder]['order_id'] %></h5>
@@ -135,6 +136,9 @@
             </div>
           </div>
           <% } %>
+          <% }  else {%>
+              You have no current orders.
+          <% } %>
         </div>
       </div>
       <!--  -->
@@ -143,6 +147,7 @@
       <div class="pastOrderContainer d-flex flex-row m-5">
         <h2 class="pastOrderTitle w-25">Past Orders</h2>
         <div class="pastOrderCardContainer flex-column w-75">
+          <% if (prevOrders)  {%>
           <% for(let prevOrder in prevOrders) { %>
           <div class="pastOrder card mb-5">
             <h5 class="card-header">Order: #<%= prevOrders[prevOrder]['order_id'] %></h5>
@@ -250,6 +255,9 @@
               </div>
             </div>
           </div>
+          <% } %>
+          <% }  else {%>
+              You have no past orders.
           <% } %>
         </div>
       </div>
