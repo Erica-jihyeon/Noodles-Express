@@ -29,6 +29,11 @@
       rows.filter(":contains('complete')").show();
    });
 
+   $("#InCartBtn").click(function () {
+    var rows = $("#table_body").find("tr").hide();
+    rows.filter(":contains('In Cart')").show();
+ });
+
     const loadCart = function() {
       $.getJSON('/order/cart/6')
         .then((data) => {
