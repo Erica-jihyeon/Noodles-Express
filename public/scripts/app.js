@@ -75,6 +75,15 @@
     const $cartRowsSum = $('#cartRowsSum');
     $test.empty();
     $cartRowsSum.empty();
+    // if cart is empty, disable order button and link
+    if (data.cart === null){
+      $('#order_now_button').attr("disabled", true);
+      $('#order_now_button_link').removeAttr("href");
+    } else {
+      $('#order_now_button').attr("disabled", false);
+      $('#order_now_button_link').attr("href", "/mypage");
+    }
+
     //check if the cart is empty or not, if it's empty don't call renderCart()
     const appendContent = data.cart !== null ? renderCart(data) : '';
     const appendSum = data.cart !== null ? renderCartSum(data) : '';
