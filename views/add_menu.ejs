@@ -15,6 +15,7 @@
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <link rel="stylesheet" href="/styles/add_menu.css" type="text/css" />
 
   <title>Noodles Express</title>
 </head>
@@ -22,31 +23,57 @@
 <body>
   <%- include('partials/_header') %>
 
-    <div class="mainContainer m-5">
+  <div class="mainContainer m-5">
+    <div class="currentOrderContainer d-flex flex-column m-5">
+      <h2 class="currentOrderTitle w-100">All Menu</h2>
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">ID #</th>
             <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Image URL</th>
-            <th scope="col">Thumbnail URL</th>
+            <th scope="col">Price</th>
             <th scope="col">Category</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-        </tbody>
-      </table>
+          <% for(let menu of data) { %>
+            <tr>
+              <td>
+                <%= menu.id %>
+              </td>
+              <td>
+                <%= menu.item_name %>
+              </td>
+              <td>
+                <%= menu.price %>
+              </td>
+              <td>
+                <%= menu.category %>
+              </td>
+              <td>
+                <form class="form-inline" action="/dashboard/delete_menu" method="POST">
+                  <input type="hidden" class="form-control" type="text" name="menu_id" value="<%= menu.id %>">
+                  <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
 
-      <div>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <br>
+
+
+
+
+
+
+    <div class="mainContainer m-5">
+      <div class="menu__body">
+        <h2>ADD NEW MENU</h2>
         <form action="/dashboard/add_menu" method="POST">
           <div class="form-group">
             <label for="itemName">Item Name</label>
@@ -70,10 +97,10 @@
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <input type="url" class="form-control" id="category" name="category" placeholder="Main">
+            <input type="text" class="form-control" id="category" name="category" placeholder="Main">
           </div>
           <br>
-          <button type="addItemToMenu" class="btn btn-primary">Add item to Menu</button>
+          <a href="/order"><button type="addItemToMenu" class="btn btn-primary">Add item to Menu</button></a>
         </form>
       </div>
       </tbody>
