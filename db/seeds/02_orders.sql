@@ -13,3 +13,11 @@ INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (7, 
 INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (7, '2022-01-09T08:00:00.000Z', '2021-12-10T09:00:00.000Z', 'complete');
 --cart
 INSERT INTO orders (user_id) VALUES (7);
+
+
+
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (8, '2021-12-09T08:00:00.000Z', '2021-12-09T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (8, '2021-12-10T08:00:00.000Z', '2021-12-10T09:00:00.000Z', 'complete');
+INSERT INTO orders (user_id, order_time, pick_up_time, order_status) VALUES (8, '2022-01-09T08:00:00.000Z', '2021-12-10T09:00:00.000Z', 'complete');
+--cart
+INSERT INTO orders (user_id) VALUES (8);
