@@ -20,3 +20,21 @@ INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) V
 INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 10, 2);
 INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 10, 3);
 INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (4, true, 'small', 10, 6);
+
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 11, 2);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 11, 3);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (4, true, 'small', 11, 6);
+
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 12, 2);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 12, 3);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (4, true, 'small', 12, 6);
+
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 13, 2);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 13, 3);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (4, true, 'small', 13, 6);
+
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 14, 2);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 14, 3);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (4, true, 'small', 14, 6);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (1, true, 'large', 14, 2);
+INSERT INTO customizations (spiciness, hot, item_size, order_id, menu_item_id) VALUES (3, true, 'med', 14, 3);
