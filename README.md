@@ -1,17 +1,19 @@
-LHL Node Skeleton
+# Noodles-Express
+- Noodles-Express is Multi Page App and Single Page App for the fictional Noodles-Express restaurant and their customers. The customers can place the orders , see the status and order history and the owner can manage their order and menu items.
+
+- Project demo
+[![Watch the video](https://www.youtube.com/embed/bS2dtAbGXP8)](https://youtu.be/bS2dtAbGXP8)
+
+- Project ERD
+!["ERD_v2"](https://github.com/Erica-jihyeon/Noodles-Express/blob/master/docs/ERD_v2.png)
+
+- Project wireframe
+!["wireframe"](https://github.com/Erica-jihyeon/Noodles-Express/blob/master/docs/wireframe_progress1.png)
+
+- Project Planning
+https://github.com/Erica-jihyeon/Noodles-Express/blob/master/docs/Noodles_Express_planning.docx
+
 =========
-
-## Project Setup
-
-The following steps are only for _one_ of the group members to perform.
-
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
-
-
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
@@ -41,3 +43,10 @@ The following steps are only for _one_ of the group members to perform.
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- body-parser
+- cookie-session
+- dotenv
+- ejs
+- express
+- sass
+- twilio
