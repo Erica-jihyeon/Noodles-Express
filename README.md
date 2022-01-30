@@ -2,7 +2,9 @@
 - Noodles-Express is Multi Page App and Single Page App for the fictional Noodles-Express restaurant and their customers. The customers can place the orders , see the status and order history and the owner can manage their order and menu items.
 
 - Project demo
-[!["video"](https://www.youtube.com/embed/bS2dtAbGXP8)](https://youtu.be/bS2dtAbGXP8)
+
+https://user-images.githubusercontent.com/92115251/151718023-9622b800-1bc3-4230-b247-25f09d661281.mp4
+
 
 - Project ERD
 !["ERD_v2"](https://github.com/Erica-jihyeon/Noodles-Express/blob/master/docs/ERD_v2.png)
